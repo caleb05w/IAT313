@@ -980,7 +980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   moveSpeed: 5
-  showFacingArrow: 0
+  showFacingArrow: 1
 --- !u!114 &1806866519
 MonoBehaviour:
   m_ObjectHideFlags: 0
