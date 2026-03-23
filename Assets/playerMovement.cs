@@ -1,36 +1,56 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Handles player movement and animation.
+// Attach to the Player GameObject alongside a Rigidbody2D and Animator.
+// Wire the "Move" method to the Move input action in the Player Input component.
 public class playerMovement : MonoBehaviour
 {
-    //this is where the variables go
-    //serialize field allows this field, despite being private, to appear in the unity interface.
-   [SerializeField] private float moveSpeed = 5f;
+    // Movement speed in units per second — adjust in the Inspector
+    [SerializeField] private float moveSpeed = 5f;
+
     private Rigidbody2D rb;
+    // Raw directional input from keyboard/gamepad (-1 to 1 on each axis)
     private Vector2 moveInput;
     private Animator animator;
 
-    // Tracks the last direction the player was facing
+    // The last direction the player was facing — used by InteractionDetector and other systems
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
 
+    // Toggle to draw a yellow arrow in the Scene view showing facing direction
     [SerializeField] private bool showFacingArrow = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Subscribe to state changes when this object becomes active
+    void OnEnable()  => GameManager.Instance.OnStateChanged += OnStateChanged;
+
+    // Unsubscribe when disabled — null check guards against scene unload order
+    void OnDisable() { if (GameManager.Instance != null) GameManager.Instance.OnStateChanged -= OnStateChanged; }
+
+    // Called whenever GameManager changes state
+    void OnStateChanged(GameManager.GameState state)
+    {
+        // Stop all movement when leaving Explore/Combat state (dialogue, pause, etc.)
+        if (state != GameManager.GameState.Explore && state != GameManager.GameState.Combat)
+        {
+            moveInput = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
+            animator.SetBool("isWalking", false);
+        }
+    }
+
     void Start()
     {
-        //allows us to reference components.
         rb = GetComponent<Rigidbody2D>();
-        //grab animator from char
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // Apply velocity each physics step based on current input
+    void FixedUpdate()
     {
         rb.linearVelocity = moveInput * moveSpeed;
-        // Debug.Log("velocity: " + rb.linearVelocity + " | moveInput: " + moveInput);
     }
 
+    // Draws a yellow arrow in the Scene view pointing in the facing direction
     void OnDrawGizmos()
     {
         if (!showFacingArrow) return;
@@ -40,18 +60,26 @@ public class playerMovement : MonoBehaviour
         Gizmos.DrawSphere(transform.position + dir, 0.1f);
     }
 
-    public void Move(InputAction.CallbackContext context) {
-        // Debug.Log("Move called | phase: " + context.phase + " | value: " + context.ReadValue<Vector2>());
+    // Called by the Input System when the Move action fires
+    // Wire this in the Player Input component under "Move" → "Move"
+    public void Move(InputAction.CallbackContext context)
+    {
+        // Ignore movement input when not in Explore or Combat state
+        if (!GameManager.Instance.IsState(GameManager.GameState.Explore) &&
+            !GameManager.Instance.IsState(GameManager.GameState.Combat)) return;
 
-        //triggers when button or keyboard is lifted
-        if (context.canceled) {
+        // Input released — stop walking and freeze the animator on the last direction
+        if (context.canceled)
+        {
             animator.SetBool("isWalking", false);
+            // LastInputX/Y hold the final direction so the idle animation faces the right way
             animator.SetFloat("LastInputX", moveInput.x);
             animator.SetFloat("LastInputY", moveInput.y);
             moveInput = Vector2.zero;
             return;
         }
 
+        // Input active — update movement and animator
         moveInput = context.ReadValue<Vector2>();
         FacingDirection = moveInput.normalized;
         animator.SetBool("isWalking", true);

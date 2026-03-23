@@ -1,61 +1,64 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 // Handles trigger-based interactions (e.g. NPCs, pickups, doors, zones).
-// Attach to any GameObject that should detect when another object enters its interaction zone.
-// Requires a CircleCollider2D — one will be auto-created if missing.
+// Attach to any GameObject. Add any Collider2D shape you want — this script will use it.
 public class InteractionDetector : MonoBehaviour
 {
-    // Radius of the interaction zone — adjust per object in the Inspector
-    [SerializeField] private float interactionRadius = 1f;
-    // Toggle to show a red circle in the Scene view representing the interaction zone
-    [SerializeField] private bool showHitbox = false;
+    // If a CircleCollider2D is present, this controls its radius
+    [SerializeField] private float radius = 1f;
+    // If true, touching this object triggers Combat state instead of Explore
+    [SerializeField] private bool isHostile = false;
 
-    private CircleCollider2D interactionCollider;
+    // Wire any public method here — called when the player enters the zone
+    [SerializeField] private UnityEvent onPlayerEnter;
+    // Called when the player exits the zone
+    [SerializeField] private UnityEvent onPlayerExit;
+
     private LabelController label;
 
     void Awake()
     {
         label = GetComponent<LabelController>();
 
-        // Grab existing CircleCollider2D or create one if not present
-        interactionCollider = GetComponent<CircleCollider2D>();
-        if (interactionCollider == null)
-            interactionCollider = gameObject.AddComponent<CircleCollider2D>();
-
-        // Must be a trigger so objects pass through instead of physically colliding
-        interactionCollider.isTrigger = true;
-        interactionCollider.radius = interactionRadius;
-    }
-
-    void OnValidate()
-    {
-        // Updates radius live in the editor when you change the value
-        var col = GetComponent<CircleCollider2D>();
-        if (col != null) col.radius = interactionRadius;
-    }
-
-    void OnDrawGizmos()
-    {
-        // Only draw if showHitbox is enabled in the Inspector
-        if (!showHitbox) return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, interactionRadius);
+        // Use whatever Collider2D is on this GameObject — set isTrigger automatically
+        var col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.isTrigger = true;
+            if (col is CircleCollider2D circle)
+                circle.radius = radius;
+        }
+        else
+            Debug.LogWarning("InteractionDetector on " + gameObject.name + " has no Collider2D.");
     }
 
     // Fires once when another collider enters the interaction zone
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Interaction Enter: " + other.gameObject.name);
-        //fadeIn can take in args string which will appear. Keep in mind this can also be set with seralized field in game ui.
-        if (label != null) label.FadeIn();
-    } 
+        if (label != null) label.ShowMessage("Press E to interact");
 
-  
+        if (!other.CompareTag("Player")) return;
+
+        if (isHostile)
+            GameManager.Instance.SetState(GameManager.GameState.Combat);
+
+        onPlayerEnter?.Invoke();
+    }
+
+    void OnTriggerStay2D(Collider2D other) { }
 
     // Fires once when another collider leaves the interaction zone
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Interaction Exit: " + other.gameObject.name);
         if (label != null) label.FadeOut();
+
+        if (other.CompareTag("Player") && GameManager.Instance != null)
+        {
+            if (isHostile)
+                GameManager.Instance.SetState(GameManager.GameState.Explore);
+
+            onPlayerExit?.Invoke();
+        }
     }
 }

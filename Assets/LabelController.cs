@@ -6,7 +6,6 @@ public class LabelController : MonoBehaviour
 {
     [SerializeField] private TextMeshPro label;
     [SerializeField] private string defaultText = "Object";
-    [SerializeField] private string interactionPrompt = "Press E to interact";
     // How long the fade in/out takes in seconds
     [SerializeField] private float fadeDuration = 0.3f;
 
@@ -17,9 +16,10 @@ public class LabelController : MonoBehaviour
         SetAlpha(0f);
     }
 
-    public void FadeIn(string message = null)
+    // Call this to show a message — wire to UnityEvents in the Inspector
+    public void ShowMessage(string message)
     {
-        label.text = message ?? interactionPrompt;
+        label.text = message;
         StopAllCoroutines();
         StartCoroutine(Fade(0f, 1f));
     }
@@ -33,7 +33,7 @@ public class LabelController : MonoBehaviour
     private IEnumerator FadeOutThenReset()
     {
         yield return Fade(label.color.a, 0f);
-        label.text = defaultText;
+        if (label != null) label.text = defaultText;
     }
 
     private IEnumerator Fade(float from, float to)
