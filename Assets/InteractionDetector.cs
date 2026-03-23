@@ -48,13 +48,9 @@ public class InteractionDetector : MonoBehaviour
         Debug.Log("Interaction Enter: " + other.gameObject.name);
         //fadeIn can take in args string which will appear. Keep in mind this can also be set with seralized field in game ui.
         if (label != null) label.FadeIn();
-    }
+    } 
 
-    // Fires every frame while another collider remains in the interaction zone
-    void OnTriggerStay2D(Collider2D other)
-    {
-        Debug.Log("Interaction Stay: " + other.gameObject.name);
-    }
+  
 
     // Fires once when another collider leaves the interaction zone
     void OnTriggerExit2D(Collider2D other)
