@@ -45,6 +45,23 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    void Start()
+    {
+        // Restore saved inventory when a new scene's player spawns
+        if (GameManager.Instance != null && GameManager.Instance.savedInventory.Count > 0)
+        {
+            items = new List<ItemData>(GameManager.Instance.savedInventory);
+            OnChanged?.Invoke();
+        }
+    }
+
+    // Call this before loading a new scene so data isn't lost when player is destroyed
+    public void SaveToGameManager()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.savedInventory = new List<ItemData>(items);
+    }
+
     void Update()
     {
         if (items.Count == 0) return;

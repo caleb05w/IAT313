@@ -15,6 +15,9 @@ public class TeleportPad : MonoBehaviour
     [SerializeField] private float fadeDuration = 0f;
     [SerializeField] private float holdDuration = 0f;
 
+    [Tooltip("Name of the SpawnPoint in the target scene where the player should appear. Leave empty to use the default SpawnPoint.")]
+    [SerializeField] private string targetSpawnPointName = "";
+
     public void Teleport()
     {
         GameObject player = GameObject.FindWithTag("Player");
@@ -29,6 +32,10 @@ public class TeleportPad : MonoBehaviour
         {
             if (!string.IsNullOrEmpty(targetScene))
             {
+                // Save inventory and target spawn before the player GameObject is destroyed
+                player.GetComponent<Inventory>()?.SaveToGameManager();
+                if (GameManager.Instance != null)
+                    GameManager.Instance.targetSpawnPointName = targetSpawnPointName;
                 SceneManager.LoadScene(targetScene);
             }
             else if (destination != null)

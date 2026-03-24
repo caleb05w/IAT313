@@ -38,20 +38,7 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-    private static playerMovement instance;
-
     void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -78,7 +65,8 @@ public class playerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         // Ignore movement input when not in Explore or Combat state
-        if (!GameManager.Instance.IsState(GameManager.GameState.Explore) &&
+        if (GameManager.Instance != null &&
+            !GameManager.Instance.IsState(GameManager.GameState.Explore) &&
             !GameManager.Instance.IsState(GameManager.GameState.Combat)) return;
 
         // Input released — stop walking and freeze the animator on the last direction

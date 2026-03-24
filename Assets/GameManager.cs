@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,12 @@ public class GameManager : MonoBehaviour
 
     // Remembers what state we were in before pausing so Unpause() can restore it
     private GameState stateBeforePause;
+
+    // Persistent player data — survives scene loads
+    [HideInInspector] public List<ItemData> savedInventory = new List<ItemData>();
+
+    // Which SpawnPoint to use in the next scene — set by TeleportPad before loading
+    [HideInInspector] public string targetSpawnPointName = "";
 
     // Subscribe to this event to react to state changes from any other script:
     // GameManager.Instance.OnStateChanged += MyHandler;
