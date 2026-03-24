@@ -1,0 +1,31 @@
+# Unity generated
+/Library/
+/Temp/
+/Logs/
+/UserSettings/
+/obj/
+/Build/
+/Builds/
+
+# Visual Studio / Rider
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.vs/
+ExportedObj/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Asset meta files should be tracked
+# !*.meta is intentionally omitted — keep meta files

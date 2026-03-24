@@ -1,0 +1,65 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+// Manages the player's inventory — dynamic size, one of each item type.
+// Attach to the Player GameObject.
+// Left/Right arrow keys cycle the selected slot.
+public class Inventory : MonoBehaviour
+{
+    private List<ItemData> items = new List<ItemData>();
+
+    public int SelectedIndex { get; private set; } = 0;
+
+    public int Count => items.Count;
+
+    // InventoryUI subscribes to this to know when to redraw
+    public event System.Action OnChanged;
+
+    // Returns the item at a given slot
+    public ItemData GetItem(int index) => (index >= 0 && index < items.Count) ? items[index] : null;
+
+    // Returns the currently selected item (null if inventory is empty)
+    public ItemData GetSelected() => items.Count > 0 ? items[SelectedIndex] : null;
+
+    // Returns true if item is already in inventory
+    public bool HasItem(ItemData item) => items.Contains(item);
+
+    // Adds an item only if it doesn't already exist — returns false if duplicate
+    public bool AddItem(ItemData item)
+    {
+        if (items.Contains(item)) return false;
+        items.Add(item);
+        string itemList = string.Join(", ", items.ConvertAll(i => i.itemName));
+        Debug.Log($"Picked up: {item.itemName} | Inventory: [{itemList}]");
+        OnChanged?.Invoke();
+        return true;
+    }
+
+    // Removes an item by reference
+    public bool RemoveItem(ItemData item)
+    {
+        if (!items.Remove(item)) return false;
+        if (SelectedIndex >= items.Count) SelectedIndex = Mathf.Max(0, items.Count - 1);
+        OnChanged?.Invoke();
+        return true;
+    }
+
+    void Update()
+    {
+        if (items.Count == 0) return;
+        if (!GameManager.Instance.IsState(GameManager.GameState.Explore)) return;
+
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+        {
+            SelectedIndex = (SelectedIndex - 1 + items.Count) % items.Count;
+            OnChanged?.Invoke();
+        }
+
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+        {
+            SelectedIndex = (SelectedIndex + 1) % items.Count;
+            OnChanged?.Invoke();
+        }
+    }
+}

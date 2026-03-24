@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/calebwu/Documents/Github/IAT313/**)",
+      "Bash(find Assets -name *.meta)"
+    ]
+  }
+}
