@@ -10,9 +10,9 @@ public class playerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
 
     private Rigidbody2D rb;
-    // Raw directional input from keyboard/gamepad (-1 to 1 on each axis)
     private Vector2 moveInput;
     private Animator animator;
+    private InputAction moveAction;
 
     // The last direction the player was facing — used by InteractionDetector and other systems
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
@@ -29,12 +29,24 @@ public class playerMovement : MonoBehaviour
     // Called whenever GameManager changes state
     void OnStateChanged(GameManager.GameState state)
     {
-        // Stop all movement when leaving Explore/Combat state (dialogue, pause, etc.)
         if (state != GameManager.GameState.Explore && state != GameManager.GameState.Combat)
         {
+            // Stop all movement when leaving Explore/Combat (dialogue, teleport, pause, etc.)
             moveInput = Vector2.zero;
             rb.linearVelocity = Vector2.zero;
             animator.SetBool("isWalking", false);
+        }
+        else if (moveAction != null)
+        {
+            // Re-read held input so the player doesn't need to re-press after state restores
+            moveInput = moveAction.ReadValue<Vector2>();
+            if (moveInput.sqrMagnitude > 0.01f)
+            {
+                FacingDirection = moveInput.normalized;
+                animator.SetBool("isWalking", true);
+                animator.SetFloat("InputX", moveInput.x);
+                animator.SetFloat("InputY", moveInput.y);
+            }
         }
     }
 
@@ -42,6 +54,9 @@ public class playerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        var playerInput = GetComponent<PlayerInput>();
+        if (playerInput != null)
+            moveAction = playerInput.actions["Move"];
     }
 
     // Apply velocity each physics step based on current input

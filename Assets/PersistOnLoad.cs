@@ -3,12 +3,22 @@ using UnityEngine.SceneManagement;
 using Cinemachine;
 
 // Attach to any GameObject that should persist across scene loads.
+// Assign cameraTarget to have the Cinemachine vcam follow that transform in every scene.
 public class PersistOnLoad : MonoBehaviour
 {
+    [Tooltip("The transform the Cinemachine vcam should follow. Assign the Player here. Leave empty to skip camera wiring.")]
+    [SerializeField] private Transform cameraTarget;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void Start()
+    {
+        // OnSceneLoaded doesn't fire for the initial scene, so wire the vcam here
+        WireCamera();
     }
 
     void OnDestroy()
@@ -18,10 +28,16 @@ public class PersistOnLoad : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Reassign the Cinemachine camera target to the persistent player
+        WireCamera();
+    }
+
+    private void WireCamera()
+    {
+        if (cameraTarget == null) return;
+
         var vcam = FindObjectOfType<CinemachineVirtualCamera>();
-        var player = GameObject.FindWithTag("Player");
-        if (vcam != null && player != null)
-            vcam.Follow = player.transform;
+        if (vcam == null) return;
+
+        vcam.Follow = cameraTarget;
     }
 }

@@ -26,6 +26,12 @@ public class GameManager : MonoBehaviour
     // Which SpawnPoint to use in the next scene — set by TeleportPad before loading
     [HideInInspector] public string targetSpawnPointName = "";
 
+    // Approach direction when crossing scenes — SpawnPoint offsets the player by this
+    [HideInInspector] public Vector2 savedApproachDirection = Vector2.down;
+
+    // Set by TeleportPad before a cross-scene load; tells SpawnPoint to apply offset + restore state
+    [HideInInspector] public bool pendingTeleportSpawn = false;
+
     // Subscribe to this event to react to state changes from any other script:
     // GameManager.Instance.OnStateChanged += MyHandler;
     public event System.Action<GameState> OnStateChanged;
@@ -36,6 +42,19 @@ public class GameManager : MonoBehaviour
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDestroy()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        // Transition is a transient travel state — always clear it when a new scene is ready
+        if (currentState == GameState.Transition)
+            SetState(GameState.Explore);
     }
 
     // Call this from any script to change the game state

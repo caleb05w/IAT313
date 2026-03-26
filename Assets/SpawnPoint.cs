@@ -20,18 +20,31 @@ public class SpawnPoint : MonoBehaviour
 
         if (!isMatch) return;
 
-        // Clear the target so returning to this scene uses the default next time
+        // Read and clear transient teleport data
+        bool fromTeleport = GameManager.Instance != null && GameManager.Instance.pendingTeleportSpawn;
+        Vector2 approachDir = Vector2.down;
         if (GameManager.Instance != null)
+        {
+            approachDir = GameManager.Instance.savedApproachDirection;
             GameManager.Instance.targetSpawnPointName = "";
+            GameManager.Instance.savedApproachDirection = Vector2.down;
+            GameManager.Instance.pendingTeleportSpawn = false;
+        }
 
         GameObject player = GameObject.FindWithTag("Player");
         if (player == null) return;
 
+        // Only offset position when arriving via teleport — fresh starts use the exact spawn position
+        Vector2 spawnPos = fromTeleport
+            ? (Vector2)transform.position + approachDir * 3f
+            : (Vector2)transform.position;
+
         var rb = player.GetComponent<Rigidbody2D>();
         if (rb != null)
-            rb.position = transform.position;
+            rb.position = spawnPos;
         else
-            player.transform.position = transform.position;
+            player.transform.position = spawnPos;
+
     }
 
     void OnDrawGizmos()
