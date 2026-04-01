@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AZALEA
+  m_Controller: {fileID: 9100000, guid: cbabcfb80bdb34e6586521536c4964b9, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: a48ced98128714fb7963dc22221e8487, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d15a718c422b546e1b700e8662c373c7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9fd65305c19b249eebee859253c47223, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8e2380d381f0a4484b91db966e28a2f1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7221c7cd0935043d3bd5f5f90367243c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d72d98eda4d244bd58e9348d362c88b5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e37b7bf0621f14f0db8fc91f2332df3b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e3dadf08399094bc5ade090b17ced59c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 54751ac84e8e7432f9e39e55470cf8a8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 52dfc87cf886f4a4a9dbc5e955622845, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e63696341af874ad8b6e91d3337b28d4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3fee23268960643968b3f8610a7790f2, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 77f5eec7ad16544e7a7fc08493019a75, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: afba33ab0be8743cd8e5a74e34ba9e40, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3fc0192b57627490897878f3c0722927, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4e54c33f337c247078b32a345230e2a9, type: 2}
