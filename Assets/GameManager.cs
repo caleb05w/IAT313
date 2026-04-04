@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // Central game state manager — controls what mode the game is currently in.
 // Attach to an empty GameObject named "GameManager" in your first scene.
@@ -50,9 +51,8 @@ public class GameManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Transition is a transient travel state — always clear it when a new scene is ready
         if (currentState == GameState.Transition)
             SetState(GameState.Explore);
     }
