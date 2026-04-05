@@ -10,6 +10,12 @@ public class PickupItem : MonoBehaviour
     private bool playerInRange = false;
     private Inventory inventory;
 
+    void Start()
+    {
+        if (itemData != null)
+            GetComponentInChildren<LabelController>()?.SetDefaultText(itemData.itemName);
+    }
+
     // Wire to InteractionDetector's onPlayerEnter
     public void OnPlayerEnter()
     {

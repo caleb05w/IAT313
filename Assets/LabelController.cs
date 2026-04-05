@@ -16,6 +16,12 @@ public class LabelController : MonoBehaviour
         label.text = string.IsNullOrEmpty(message) ? defaultText : message;
     }
 
+    public void SetDefaultText(string text)
+    {
+        defaultText = text;
+        label.text = defaultText;
+    }
+
     public void FadeOut()
     {
         label.text = defaultText;
