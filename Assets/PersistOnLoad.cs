@@ -35,7 +35,7 @@ public class PersistOnLoad : MonoBehaviour
     {
         if (cameraTarget == null) return;
 
-        var vcam = FindObjectOfType<CinemachineVirtualCamera>();
+        var vcam = FindFirstObjectByType<CinemachineVirtualCamera>();
         if (vcam == null) return;
 
         vcam.Follow = cameraTarget;

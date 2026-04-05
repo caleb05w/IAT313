@@ -3,30 +3,25 @@ using UnityEngine.InputSystem;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
+    [SerializeField] private Dialogue dialogue;
 
     private bool playerInRange = false;
-    private DialogueManager dialogueManager;
-
     private NPCWander wander;
 
     void Start()
     {
-        dialogueManager = FindObjectOfType<DialogueManager>(true);
         wander = GetComponent<NPCWander>();
     }
 
     void Update()
     {
-        if (playerInRange && Keyboard.current.eKey.wasPressedThisFrame)
+        if (DialogueManager.Instance == null) return;
+
+        // Only opens dialogue — advancing/dismissing is handled by DialogueManager
+        if (playerInRange && Keyboard.current.eKey.wasPressedThisFrame && !DialogueManager.Instance.IsOpen())
         {
-            if (dialogueManager.IsOpen())
-                dialogueManager.DisplayNextLine();
-            else
-            {
-                dialogueManager.StartDialogue(dialogue);
-                wander?.SetTalking(true);
-            }
+            DialogueManager.Instance.StartDialogue(dialogue);
+            wander?.SetTalking(true);
         }
     }
 
@@ -41,7 +36,7 @@ public class DialogueTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            dialogueManager?.EndDialogue();
+            DialogueManager.Instance?.EndDialogue();
             wander?.SetTalking(false);
         }
     }

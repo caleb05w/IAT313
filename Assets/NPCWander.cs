@@ -54,6 +54,14 @@ public class NPCWander : MonoBehaviour
     // Unity lifecycle
     // -------------------------------------------------------------------------
 
+    void OnDisable() { if (GameManager.Instance != null) GameManager.Instance.OnStateChanged -= OnStateChanged; }
+
+    void OnStateChanged(GameManager.GameState state)
+    {
+        if (state == GameManager.GameState.Dialogue || state == GameManager.GameState.Pause)
+            StopMoving();
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -62,6 +70,9 @@ public class NPCWander : MonoBehaviour
 
         var playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null) player = playerObj.transform;
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnStateChanged += OnStateChanged;
 
         wanderCoroutine = StartCoroutine(WanderLoop());
     }

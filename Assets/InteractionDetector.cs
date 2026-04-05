@@ -16,6 +16,8 @@ public class InteractionDetector : MonoBehaviour
     [SerializeField] private UnityEvent onPlayerEnter;
     // Called when the player exits the zone
     [SerializeField] private UnityEvent onPlayerExit;
+    // Called with the player's Collider2D — wire to ConditionalInteractable.OnPlayerEnter
+    [SerializeField] private UnityEngine.Events.UnityEvent<Collider2D> onPlayerEnterWithCollider;
 
     private LabelController label;
 
@@ -49,9 +51,8 @@ public class InteractionDetector : MonoBehaviour
             GameManager.Instance.SetState(GameManager.GameState.Combat);
 
         onPlayerEnter?.Invoke();
+        onPlayerEnterWithCollider?.Invoke(other);
     }
-
-    void OnTriggerStay2D(Collider2D other) { }
 
     // Fires once when another collider leaves the interaction zone
     void OnTriggerExit2D(Collider2D other)

@@ -20,9 +20,6 @@ public class playerMovement : MonoBehaviour
     // Toggle to draw a yellow arrow in the Scene view showing facing direction
     [SerializeField] private bool showFacingArrow = false;
 
-    // Subscribe to state changes when this object becomes active
-    void OnEnable()  { if (GameManager.Instance != null) GameManager.Instance.OnStateChanged += OnStateChanged; }
-
     // Unsubscribe when disabled — null check guards against scene unload order
     void OnDisable() { if (GameManager.Instance != null) GameManager.Instance.OnStateChanged -= OnStateChanged; }
 
@@ -35,6 +32,8 @@ public class playerMovement : MonoBehaviour
             moveInput = Vector2.zero;
             rb.linearVelocity = Vector2.zero;
             animator.SetBool("isWalking", false);
+            animator.SetFloat("LastInputX", FacingDirection.x);
+            animator.SetFloat("LastInputY", FacingDirection.y);
         }
         else if (moveAction != null)
         {
@@ -59,10 +58,24 @@ public class playerMovement : MonoBehaviour
             moveAction = playerInput.actions["Move"];
     }
 
-    // Apply velocity each physics step based on current input
+    // Subscribe in Start — guarantees GameManager.Instance exists
+    void Start()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnStateChanged += OnStateChanged;
+    }
+
+    private bool CanMove()
+    {
+        if (GameManager.Instance == null) return true;
+        return GameManager.Instance.IsState(GameManager.GameState.Explore) ||
+               GameManager.Instance.IsState(GameManager.GameState.Combat);
+    }
+
+    // Apply velocity each physics step — enforces zero velocity when not in a movement state
     void FixedUpdate()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        rb.linearVelocity = CanMove() ? moveInput * moveSpeed : Vector2.zero;
     }
 
     // Draws a yellow arrow in the Scene view pointing in the facing direction
@@ -79,10 +92,7 @@ public class playerMovement : MonoBehaviour
     // Wire this in the Player Input component under "Move" → "Move"
     public void Move(InputAction.CallbackContext context)
     {
-        // Ignore movement input when not in Explore or Combat state
-        if (GameManager.Instance != null &&
-            !GameManager.Instance.IsState(GameManager.GameState.Explore) &&
-            !GameManager.Instance.IsState(GameManager.GameState.Combat)) return;
+        if (!CanMove()) return;
 
         // Input released — stop walking and freeze the animator on the last direction
         if (context.canceled)

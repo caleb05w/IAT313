@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         if (items.Count == 0) return;
-        if (!GameManager.Instance.IsState(GameManager.GameState.Explore)) return;
+        if (GameManager.Instance == null || !GameManager.Instance.IsState(GameManager.GameState.Explore)) return;
 
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
         {

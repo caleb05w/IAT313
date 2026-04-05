@@ -5,22 +5,27 @@ using UnityEngine;
 // Leave spawnPointName empty to make this the default spawn for the scene.
 public class SpawnPoint : MonoBehaviour
 {
+    public enum SpawnDirection { UseApproachDirection, Up, Down, Left, Right }
+
     [Tooltip("Must match the TeleportPad's Target Spawn Point Name in the source scene. Leave empty for the default spawn.")]
     [SerializeField] private string spawnPointName = "";
+
+    [Tooltip("Which direction the player spawns from. UseApproachDirection mirrors the direction they were travelling.")]
+    [SerializeField] private SpawnDirection spawnDirection = SpawnDirection.UseApproachDirection;
+
+    [Tooltip("How far from the spawn point the player lands.")]
+    [SerializeField] private float spawnOffset = 0.5f;
 
     void Start()
     {
         string target = GameManager.Instance != null ? GameManager.Instance.targetSpawnPointName : "";
 
-        // This spawn point is active if it matches the requested target,
-        // or if no target is set and this is the default (unnamed) spawn.
         bool isMatch = string.IsNullOrEmpty(target)
             ? string.IsNullOrEmpty(spawnPointName)
             : spawnPointName == target;
 
         if (!isMatch) return;
 
-        // Read and clear transient teleport data
         bool fromTeleport = GameManager.Instance != null && GameManager.Instance.pendingTeleportSpawn;
         Vector2 approachDir = Vector2.down;
         if (GameManager.Instance != null)
@@ -34,9 +39,8 @@ public class SpawnPoint : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         if (player == null) return;
 
-        // Only offset position when arriving via teleport — fresh starts use the exact spawn position
         Vector2 spawnPos = fromTeleport
-            ? (Vector2)transform.position + approachDir * 3f
+            ? (Vector2)transform.position + ResolveDirection(approachDir) * spawnOffset
             : (Vector2)transform.position;
 
         var rb = player.GetComponent<Rigidbody2D>();
@@ -44,13 +48,28 @@ public class SpawnPoint : MonoBehaviour
             rb.position = spawnPos;
         else
             player.transform.position = spawnPos;
+    }
 
+    private Vector2 ResolveDirection(Vector2 approachDir)
+    {
+        switch (spawnDirection)
+        {
+            case SpawnDirection.Up:    return Vector2.up;
+            case SpawnDirection.Down:  return Vector2.down;
+            case SpawnDirection.Left:  return Vector2.left;
+            case SpawnDirection.Right: return Vector2.right;
+            default:                   return approachDir;
+        }
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = string.IsNullOrEmpty(spawnPointName) ? Color.green : Color.cyan;
         Gizmos.DrawWireSphere(transform.position, 0.3f);
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 0.5f);
+
+        // Draw an arrow showing the resolved spawn direction
+        Vector2 dir = ResolveDirection(Vector2.down);
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3)(dir * spawnOffset));
+        Gizmos.DrawWireSphere(transform.position + (Vector3)(dir * spawnOffset), 0.15f);
     }
 }

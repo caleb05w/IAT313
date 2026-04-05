@@ -8,6 +8,8 @@ public class CollisionHandler : MonoBehaviour
 {
     // Toggle to show a red outline of the collider in the Scene view
     [SerializeField] private bool showHitbox = false;
+    // Toggle to log collision events in the Console
+    [SerializeField] private bool debugCollisions = false;
 
     void OnDrawGizmos()
     {
@@ -50,18 +52,18 @@ public class CollisionHandler : MonoBehaviour
     // Fires once when this object makes contact with another collider
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision Enter: " + collision.gameObject.name);
+        if (debugCollisions) Debug.Log("Collision Enter: " + collision.gameObject.name);
     }
 
     // Fires every frame while this object remains in contact with another collider
     void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("Collision Stay: " + collision.gameObject.name);
+        if (debugCollisions) Debug.Log("Collision Stay: " + collision.gameObject.name);
     }
 
     // Fires once when this object separates from another collider
     void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log("Collision Exit: " + collision.gameObject.name);
+        if (debugCollisions) Debug.Log("Collision Exit: " + collision.gameObject.name);
     }
 }

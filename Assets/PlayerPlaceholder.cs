@@ -7,7 +7,7 @@ public class PlayerPlaceholder : MonoBehaviour
 {
     void Awake()
     {
-        foreach (var p in FindObjectsOfType<playerMovement>())
+        foreach (var p in FindObjectsByType<playerMovement>(FindObjectsSortMode.None))
         {
             if (p.gameObject != gameObject)
             {

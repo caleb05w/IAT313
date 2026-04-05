@@ -9,9 +9,11 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Collider2D))]
 public class TeleportPad : MonoBehaviour
 {
+    public enum SpawnDirection { UseApproachDirection, Up, Down, Left, Right }
+
     [Header("Same-Scene Destination")]
-    [Tooltip("Move the player to this Transform within the current scene. Leave empty if loading a new scene.")]
-    [SerializeField] private Transform destination;
+    [Tooltip("The TeleportPad to send the player to. The destination pad controls the spawn position and direction.")]
+    [SerializeField] private TeleportPad destination;
 
     [Header("Cross-Scene")]
     [Tooltip("Name of the scene to load. Leave empty to teleport within the same scene.")]
@@ -20,13 +22,23 @@ public class TeleportPad : MonoBehaviour
     [Tooltip("Name of the SpawnPoint in the target scene. Leave empty to use the default spawn.")]
     [SerializeField] private string targetSpawnPointName = "";
 
+    [Header("Item Requirement")]
+    [Tooltip("Item the player must have to use this pad. Leave empty for no requirement.")]
+    [SerializeField] private ItemData requiredItem;
+    [Tooltip("Dialogue shown when the player is missing the required item.")]
+    [SerializeField] private Dialogue blockedDialogue;
+
+    [Header("Spawn")]
+    [Tooltip("Direction the player faces when they arrive. UseApproachDirection mirrors the direction they were travelling.")]
+    [SerializeField] private SpawnDirection spawnDirection = SpawnDirection.UseApproachDirection;
+    [Tooltip("How far from the destination the player lands.")]
+    [SerializeField] private float spawnOffset = 0.5f;
+
     [Header("Feel")]
     [SerializeField] private float fadeDuration = 0.3f;
     [SerializeField] private float holdDuration = 0.2f;
     [Tooltip("Seconds before this pad can trigger again. Prevents instant re-trigger on same-scene teleports.")]
     [SerializeField] private float cooldown = 1f;
-    [Tooltip("How far in front of the spawn point the player lands, in the direction they were travelling.")]
-    [SerializeField] private float spawnOffset = 3f;
 
     private bool onCooldown;
 
@@ -39,7 +51,25 @@ public class TeleportPad : MonoBehaviour
     {
         if (onCooldown || !other.CompareTag("Player")) return;
 
-        // Capture approach direction now — velocity may be zeroed during the fade
+        if (requiredItem != null)
+        {
+            var inventory = other.GetComponent<Inventory>();
+            if (inventory == null || !inventory.HasItem(requiredItem))
+            {
+                var dialogue = blockedDialogue != null && blockedDialogue.dialogueText?.Length > 0
+                    ? blockedDialogue
+                    : new Dialogue
+                    {
+                        showDialogue = true,
+                        characterName = "???",
+                        dialogueText = new[] { $"You need the {requiredItem.itemName} to pass." }
+                    };
+
+                DialogueManager.Instance?.StartDialogue(dialogue);
+                return;
+            }
+        }
+
         var rb = other.GetComponent<Rigidbody2D>();
         Vector2 approachDir = rb != null && rb.linearVelocity.sqrMagnitude > 0.01f
             ? rb.linearVelocity.normalized
@@ -69,7 +99,7 @@ public class TeleportPad : MonoBehaviour
             else if (destination != null)
             {
                 var rb = player.GetComponent<Rigidbody2D>();
-                Vector2 spawnPos = (Vector2)destination.position + approachDir * spawnOffset;
+                Vector2 spawnPos = destination.GetSpawnPosition();
                 if (rb != null)
                     rb.position = spawnPos;
                 else
@@ -81,9 +111,49 @@ public class TeleportPad : MonoBehaviour
             }
         });
 
-        // Only reached for same-scene teleports (cross-scene destroys this object)
         GameManager.Instance?.SetState(GameManager.GameState.Explore);
         yield return new WaitForSeconds(cooldown);
         onCooldown = false;
+    }
+
+    // Returns where the player will land when arriving at this pad
+    public Vector2 GetSpawnPosition()
+    {
+        Vector2 dir = spawnDirection == SpawnDirection.UseApproachDirection
+            ? Vector2.down
+            : ResolveDirection(Vector2.zero);
+        return (Vector2)transform.position + dir * spawnOffset;
+    }
+
+    private Vector2 ResolveDirection(Vector2 approachDir)
+    {
+        switch (spawnDirection)
+        {
+            case SpawnDirection.Up:    return Vector2.up;
+            case SpawnDirection.Down:  return Vector2.down;
+            case SpawnDirection.Left:  return Vector2.left;
+            case SpawnDirection.Right: return Vector2.right;
+            default:                   return approachDir;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (spawnDirection == SpawnDirection.UseApproachDirection) return;
+
+        Vector2 dir = ResolveDirection(Vector2.zero);
+        Vector3 landingPos = (Vector2)transform.position + dir * spawnOffset;
+
+        // Line from this pad to landing point
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, landingPos);
+
+        // Landing position
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(landingPos, 0.2f);
+
+        // This pad center
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 0.15f);
     }
 }
