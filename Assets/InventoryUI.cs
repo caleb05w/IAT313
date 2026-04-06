@@ -19,7 +19,10 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Vector3   headOffset      = new Vector3(0f, 1.2f, 0f);
     [SerializeField] private Color     bgColor         = new Color(0f, 0f, 0f, 0.45f);
     [SerializeField] private Vector2   bgPadding       = new Vector2(0.15f, 0.1f);
-    [SerializeField] private float     nameFontSize    = 0.1f;
+    [SerializeField] private float     nameFontSize       = 0.1f;
+    [SerializeField] private float     referenceOrthoSize = 5f;
+
+    private float CameraScale => Camera.main != null ? Camera.main.orthographicSize / referenceOrthoSize : 1f;
 
     private Image leftSlot, centerSlot, rightSlot;
     private Image background;
@@ -100,6 +103,9 @@ public class InventoryUI : MonoBehaviour
 
         if (playerTransform != null && transform.localScale.x > 0f)
             transform.position = playerTransform.position + headOffset;
+
+        if (isOpen && !isAnimating && openCoroutine == null)
+            transform.localScale = Vector3.one * CameraScale;
     }
 
     // -------------------------------------------------------------------------
@@ -108,18 +114,18 @@ public class InventoryUI : MonoBehaviour
         if (opening)
         {
             Rebuild();
+            float cs = CameraScale;
             transform.localScale = Vector3.zero;
             float elapsed = 0f;
             while (elapsed < openDuration)
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / openDuration));
-                // Slight overshoot: scale to 1.1 then snap — punch feel
-                float s = t < 0.8f ? Mathf.Lerp(0f, 1.1f, t / 0.8f) : Mathf.Lerp(1.1f, 1f, (t - 0.8f) / 0.2f);
+                float s = t < 0.8f ? Mathf.Lerp(0f, cs * 1.1f, t / 0.8f) : Mathf.Lerp(cs * 1.1f, cs, (t - 0.8f) / 0.2f);
                 transform.localScale = new Vector3(s, s, 1f);
                 yield return null;
             }
-            transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one * cs;
         }
         else
         {
