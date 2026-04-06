@@ -1327,7 +1327,7 @@ MonoBehaviour:
   destination: {fileID: 0}
   targetScene: Scene2
   targetSpawnPointName: Harry Apt Teleport
-  requiredItem: {fileID: 11400000, guid: 69ac3b3052a234905b7b2d365f178ef1, type: 2}
+  requiredItem: {fileID: 11400000, guid: 2d72b7ba514db4101bfa55c3ea815454, type: 2}
   blockedDialogue:
     showDialogue: 0
     dialogueText: []
