@@ -22,6 +22,14 @@ public class TeleportPad : MonoBehaviour
     [Tooltip("Name of the SpawnPoint in the target scene. Leave empty to use the default spawn.")]
     [SerializeField] private string targetSpawnPointName = "";
 
+    [Header("Flag Requirements")]
+    [Tooltip("This flag must be set on GameManager before the player can use this pad. Leave empty to skip.")]
+    [SerializeField] private string requiredFlag = "";
+    [Tooltip("Sets this flag on GameManager when the player successfully teleports. Leave empty to skip.")]
+    [SerializeField] private string setFlagOnTeleport = "";
+    [Tooltip("Dialogue shown when the required flag is not set.")]
+    [SerializeField] private Dialogue missingFlagDialogue;
+
     [Header("Item Requirement")]
     [Tooltip("Item the player must have to use this pad. Leave empty for no requirement.")]
     [SerializeField] private ItemData requiredItem;
@@ -50,6 +58,15 @@ public class TeleportPad : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (onCooldown || !other.CompareTag("Player")) return;
+
+        if (!string.IsNullOrEmpty(requiredFlag) && (GameManager.Instance == null || !GameManager.Instance.HasFlag(requiredFlag)))
+        {
+            var dialogue = missingFlagDialogue != null && missingFlagDialogue.dialogueText?.Length > 0
+                ? missingFlagDialogue
+                : new Dialogue { showDialogue = true, characterName = "???", dialogueText = new[] { "You can't go there yet." } };
+            DialogueManager.Instance?.StartDialogue(dialogue);
+            return;
+        }
 
         if (requiredItem != null)
         {
@@ -110,6 +127,9 @@ public class TeleportPad : MonoBehaviour
                 Debug.LogWarning($"TeleportPad '{name}': no Destination or Target Scene set.", this);
             }
         });
+
+        if (!string.IsNullOrEmpty(setFlagOnTeleport))
+            GameManager.Instance?.SetFlag(setFlagOnTeleport);
 
         GameManager.Instance?.SetState(GameManager.GameState.Explore);
         yield return new WaitForSeconds(cooldown);

@@ -214,6 +214,12 @@ MonoBehaviour:
   destination: {fileID: 1217599039}
   targetScene: 
   targetSpawnPointName: Hallway Teleport
+  requiredFlag: 
+  setFlagOnTeleport: 
+  missingFlagDialogue:
+    showDialogue: 0
+    dialogueText: []
+    characterName: 
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
@@ -838,6 +844,7 @@ GameObject:
   - component: {fileID: 434063055}
   - component: {fileID: 434063054}
   - component: {fileID: 434063053}
+  - component: {fileID: 434063058}
   m_Layer: 9
   m_Name: Bedroom Key
   m_TagString: Untagged
@@ -1041,6 +1048,103 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!82 &434063058
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434063051}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 82e35ddad4dff46b3a364501d4fb1815, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &486208014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,6 +1240,12 @@ MonoBehaviour:
   destination: {fileID: 1935047386}
   targetScene: 
   targetSpawnPointName: Hallway Teleport
+  requiredFlag: 
+  setFlagOnTeleport: 
+  missingFlagDialogue:
+    showDialogue: 0
+    dialogueText: []
+    characterName: 
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
@@ -2379,6 +2489,12 @@ MonoBehaviour:
   destination: {fileID: 1660124851}
   targetScene: 
   targetSpawnPointName: Hallway Teleport
+  requiredFlag: 
+  setFlagOnTeleport: openBedroom
+  missingFlagDialogue:
+    showDialogue: 0
+    dialogueText: []
+    characterName: 
   requiredItem: {fileID: 11400000, guid: 7fc70d203bb3e45f4a98a27c9011987a, type: 2}
   blockedDialogue:
     showDialogue: 0
@@ -2973,6 +3089,12 @@ MonoBehaviour:
   destination: {fileID: 55517948}
   targetScene: 
   targetSpawnPointName: 
+  requiredFlag: 
+  setFlagOnTeleport: 
+  missingFlagDialogue:
+    showDialogue: 0
+    dialogueText: []
+    characterName: 
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
@@ -3352,6 +3474,12 @@ MonoBehaviour:
   destination: {fileID: 0}
   targetScene: Scene2
   targetSpawnPointName: Scene2 - Enters Harry Apt
+  requiredFlag: 
+  setFlagOnTeleport: 
+  missingFlagDialogue:
+    showDialogue: 0
+    dialogueText: []
+    characterName: 
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
@@ -4008,6 +4136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1635661401}
   - component: {fileID: 1635661402}
+  - component: {fileID: 1635661403}
   m_Layer: 0
   m_Name: SceneDirector
   m_TagString: Untagged
@@ -4049,7 +4178,19 @@ MonoBehaviour:
     characterName: 
   onSceneStart:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1635661403}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onSceneReady:
     m_PersistentCalls:
       m_Calls: []
@@ -4114,6 +4255,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+  - flag: openBedroom
+    onFlagSet:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1635661403}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   onDialogueOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -4132,6 +4289,103 @@ MonoBehaviour:
   onUnpause:
     m_PersistentCalls:
       m_Calls: []
+--- !u!82 &1635661403
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635661400}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 6434441eea4c94aa49cacad42c2595d2, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1660124848
 GameObject:
   m_ObjectHideFlags: 0
@@ -4227,6 +4481,12 @@ MonoBehaviour:
   destination: {fileID: 786837540}
   targetScene: 
   targetSpawnPointName: Hallway Teleport
+  requiredFlag: 
+  setFlagOnTeleport: 
+  missingFlagDialogue:
+    showDialogue: 0
+    dialogueText: []
+    characterName: 
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
@@ -5543,6 +5803,12 @@ MonoBehaviour:
   destination: {fileID: 486208017}
   targetScene: 
   targetSpawnPointName: Hallway Teleport
+  requiredFlag: 
+  setFlagOnTeleport: 
+  missingFlagDialogue:
+    showDialogue: 0
+    dialogueText: []
+    characterName: 
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
