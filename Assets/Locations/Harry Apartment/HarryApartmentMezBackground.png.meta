@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f5937c05a019c4aeea146391fc8aed84
+guid: d43f1b3fc49ec48ee843d7563b2976eb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3671888599097409843
-    second: HarryApartmentBedroomTEMPORARY_0
+      213: 2033787375895348810
+    second: HarryApartmentMezBackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HarryApartmentBedroomTEMPORARY_0
+      name: HarryApartmentMezBackground_0
       rect:
         serializedVersion: 2
         x: 21
-        y: 21
-        width: 182
-        height: 246
+        y: 0
+        width: 246
+        height: 203
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3310204f93b25f230800000000000000
-      internalID: 3671888599097409843
+      spriteID: a468ae8c7d6793c10800000000000000
+      internalID: 2033787375895348810
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HarryApartmentBedroomTEMPORARY_0: 3671888599097409843
+      HarryApartmentMezBackground_0: 2033787375895348810
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

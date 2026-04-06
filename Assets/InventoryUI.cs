@@ -254,7 +254,8 @@ public class InventoryUI : MonoBehaviour
     void Rebuild()
     {
         DestroySlots();
-        if (!isOpen || inventory.Count == 0) { UpdateBackground(0); UpdateNameLabel(); return; }
+        if (!isOpen) { UpdateBackground(0); UpdateNameLabel(); return; }
+        if (inventory.Count == 0) { UpdateNameLabel(); UpdateBackgroundForEmpty(); return; }
 
         int sel   = inventory.SelectedIndex;
         int count = inventory.Count;
@@ -288,6 +289,21 @@ public class InventoryUI : MonoBehaviour
     void UpdateNameLabel()
     {
         if (nameLabel == null) return;
+
+        if (isOpen && inventory.Count == 0)
+        {
+            nameLabel.text = "Inventory empty";
+            float textW = nameLabel.GetPreferredValues(nameLabel.text, float.MaxValue, float.MaxValue).x;
+            var labelRect = nameLabel.GetComponent<RectTransform>();
+            labelRect.sizeDelta        = new Vector2(textW, nameFontSize * 1.5f);
+            labelRect.anchoredPosition = Vector2.zero;
+            nameLabel.gameObject.SetActive(true);
+            return;
+        }
+
+        // restore normal position below slots
+        nameLabel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -(slotH * 0.5f + bgPadding.y + nameFontSize * 0.5f));
+
         var selected = inventory.GetSelected();
         if (isOpen && selected != null)
         {
@@ -300,6 +316,20 @@ public class InventoryUI : MonoBehaviour
         {
             nameLabel.gameObject.SetActive(false);
         }
+    }
+
+    void UpdateBackgroundForEmpty()
+    {
+        if (background == null) return;
+        float textW = nameLabel != null && nameLabel.gameObject.activeSelf
+            ? nameLabel.GetComponent<RectTransform>().sizeDelta.x + bgPadding.x * 2f
+            : slotW + bgPadding.x * 2f;
+        float h = nameFontSize * 1.5f + bgPadding.y * 2f;
+        var bgRect = background.GetComponent<RectTransform>();
+        bgRect.sizeDelta        = new Vector2(textW, h);
+        bgRect.anchoredPosition = Vector2.zero;
+        background.gameObject.SetActive(true);
+        background.transform.SetAsFirstSibling();
     }
 
     void UpdateBackground(int visibleSlots)

@@ -11,6 +11,12 @@ public class InteractionDetector : MonoBehaviour
     [SerializeField] private bool useBoxCollider = false;
     // If true, touching this object triggers Combat state instead of Explore
     [SerializeField] private bool isHostile = false;
+    [SerializeField] private string interactLabel;
+    [SerializeField] private string flagOnEnter;
+    [SerializeField] private string flagOnExit;
+    [SerializeField] private bool oneShot = false;
+
+    private bool hasFired = false;
 
     // Wire any public method here — called when the player enters the zone
     [SerializeField] private UnityEvent onPlayerEnter;
@@ -44,12 +50,15 @@ public class InteractionDetector : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+        if (oneShot && hasFired) return;
 
-        if (label != null) label.ShowMessage("Press E to interact");
+        if (label != null) label.ShowMessage(string.IsNullOrEmpty(interactLabel) ? "Press E to interact" : interactLabel);
 
         if (isHostile)
             GameManager.Instance.SetState(GameManager.GameState.Combat);
 
+        if (!string.IsNullOrEmpty(flagOnEnter)) GameManager.Instance?.SetFlag(flagOnEnter);
+        hasFired = true;
         onPlayerEnter?.Invoke();
         onPlayerEnterWithCollider?.Invoke(other);
     }
@@ -66,6 +75,7 @@ public class InteractionDetector : MonoBehaviour
             if (isHostile)
                 GameManager.Instance.SetState(GameManager.GameState.Explore);
 
+            if (!string.IsNullOrEmpty(flagOnExit)) GameManager.Instance.SetFlag(flagOnExit);
             onPlayerExit?.Invoke();
         }
     }

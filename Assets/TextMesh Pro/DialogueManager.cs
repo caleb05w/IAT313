@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject dialogueBox;
 
-    private string[] lines;
+    private DialogueLine[] lines;
     private int currentIndex = 0;
     private bool isOpen = false;
 
@@ -42,14 +42,19 @@ public class DialogueManager : MonoBehaviour
 // takes all the NPC lines and writes down the character's name and their lines
     public void StartDialogue(Dialogue dialogue)
     {
-        lines = dialogue.dialogueText;
+        lines = dialogue.lines;
         currentIndex = 0;
         isOpen = true;
 
         dialogueBox.SetActive(dialogue.showDialogue);
-        nameText.text = dialogue.characterName;
-        dialogueText.text = lines[currentIndex];
+        ShowLine(lines[currentIndex]);
         GameManager.Instance?.SetState(GameManager.GameState.Dialogue);
+    }
+
+    private void ShowLine(DialogueLine line)
+    {
+        nameText.text     = line.characterName;
+        dialogueText.text = line.text;
     }
 
 // each time you press E, displays the next line if theres any
@@ -63,7 +68,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        dialogueText.text = lines[currentIndex];
+        ShowLine(lines[currentIndex]);
     }
 
 // if you walk away or when dialogue is finished, changes isOpen to false and the box disappears

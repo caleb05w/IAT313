@@ -113,7 +113,7 @@ public class ConditionalInteractable : MonoBehaviour
 
     private void PlayDialogue(Dialogue d)
     {
-        if (d == null || d.dialogueText == null || d.dialogueText.Length == 0) return;
+        if (d == null || d.lines == null || d.lines.Length == 0) return;
         DialogueManager.Instance?.StartDialogue(d);
     }
 
@@ -121,9 +121,8 @@ public class ConditionalInteractable : MonoBehaviour
     {
         return new Dialogue
         {
-            characterName = "",
-            dialogueText = new[] { $"You need {item.itemName} to do this." },
-            showDialogue = true
+            showDialogue = true,
+            lines = new[] { new DialogueLine { characterName = "", text = $"You need {item.itemName} to do this." } }
         };
     }
 }

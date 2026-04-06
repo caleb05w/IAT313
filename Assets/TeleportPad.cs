@@ -61,9 +61,9 @@ public class TeleportPad : MonoBehaviour
 
         if (!string.IsNullOrEmpty(requiredFlag) && (GameManager.Instance == null || !GameManager.Instance.HasFlag(requiredFlag)))
         {
-            var dialogue = missingFlagDialogue != null && missingFlagDialogue.dialogueText?.Length > 0
+            var dialogue = missingFlagDialogue != null && missingFlagDialogue.lines?.Length > 0
                 ? missingFlagDialogue
-                : new Dialogue { showDialogue = true, characterName = "???", dialogueText = new[] { "You can't go there yet." } };
+                : new Dialogue { showDialogue = true, lines = new[] { new DialogueLine { characterName = "???", text = "You can't go there yet." } } };
             DialogueManager.Instance?.StartDialogue(dialogue);
             return;
         }
@@ -73,13 +73,12 @@ public class TeleportPad : MonoBehaviour
             var inventory = other.GetComponent<Inventory>();
             if (inventory == null || !inventory.HasItem(requiredItem))
             {
-                var dialogue = blockedDialogue != null && blockedDialogue.dialogueText?.Length > 0
+                var dialogue = blockedDialogue != null && blockedDialogue.lines?.Length > 0
                     ? blockedDialogue
                     : new Dialogue
                     {
                         showDialogue = true,
-                        characterName = "???",
-                        dialogueText = new[] { $"You need the {requiredItem.itemName} to pass." }
+                        lines = new[] { new DialogueLine { characterName = "???", text = $"You need the {requiredItem.itemName} to pass." } }
                     };
 
                 DialogueManager.Instance?.StartDialogue(dialogue);
@@ -98,6 +97,16 @@ public class TeleportPad : MonoBehaviour
     private IEnumerator TeleportWithFade(GameObject player, Vector2 approachDir)
     {
         onCooldown = true;
+
+        bool hasDestination = !string.IsNullOrEmpty(targetScene) || destination != null;
+
+        if (!hasDestination)
+        {
+            Debug.LogWarning($"TeleportPad '{name}': no Destination or Target Scene set.", this);
+            onCooldown = false;
+            yield break;
+        }
+
         GameManager.Instance?.SetState(GameManager.GameState.Transition);
 
         yield return ScreenFade.Get().FadeOutAndIn(fadeDuration, holdDuration, () =>
@@ -113,7 +122,7 @@ public class TeleportPad : MonoBehaviour
                 }
                 SceneManager.LoadScene(targetScene);
             }
-            else if (destination != null)
+            else
             {
                 var rb = player.GetComponent<Rigidbody2D>();
                 Vector2 spawnPos = destination.GetSpawnPosition();
@@ -121,10 +130,6 @@ public class TeleportPad : MonoBehaviour
                     rb.position = spawnPos;
                 else
                     player.transform.position = spawnPos;
-            }
-            else
-            {
-                Debug.LogWarning($"TeleportPad '{name}': no Destination or Target Scene set.", this);
             }
         });
 

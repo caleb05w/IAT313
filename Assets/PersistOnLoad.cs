@@ -19,6 +19,7 @@ public class PersistOnLoad : MonoBehaviour
     {
         // OnSceneLoaded doesn't fire for the initial scene, so wire the vcam here
         WireCamera();
+        DisableDuplicateAudioListeners();
     }
 
     void OnDestroy()
@@ -29,6 +30,17 @@ public class PersistOnLoad : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         WireCamera();
+        DisableDuplicateAudioListeners();
+    }
+
+    private void DisableDuplicateAudioListeners()
+    {
+        bool foundFirst = false;
+        foreach (var listener in FindObjectsByType<AudioListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (!foundFirst) { foundFirst = true; }
+            else             { listener.enabled = false; }
+        }
     }
 
     private void WireCamera()
