@@ -183,6 +183,10 @@ MonoBehaviour:
   radius: 1
   useBoxCollider: 0
   isHostile: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -476,13 +480,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 1
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -630,7 +632,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 973243019
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1694913177206695654, guid: 56138c7296e9942bb9c7ad143767d85d, type: 3}
@@ -842,7 +844,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -933,7 +935,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 973243019
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7047310441521186486, guid: 3c8384c2c52354b0dbac9137ad358055, type: 3}
@@ -1118,7 +1120,7 @@ SortingGroup:
   m_GameObject: {fileID: 363608460}
   m_Enabled: 1
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
@@ -1240,13 +1242,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 2
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -1419,7 +1419,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -1516,19 +1516,13 @@ MonoBehaviour:
   setFlagOnSuccess: receivedCall
   successDialogue:
     showDialogue: 1
-    dialogueText:
-    - .....
-    - Hello Dhalia
-    characterName: Phone Call From the Boss
+    lines: []
   missingItemDialogue:
     showDialogue: 0
-    dialogueText:
-    - The fires cold. You should light it.
-    characterName: 
+    lines: []
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   onSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -1550,6 +1544,10 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -1869,7 +1867,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -2294,13 +2292,11 @@ MonoBehaviour:
   setFlagOnTeleport: openBedroom
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 11400000, guid: 7fc70d203bb3e45f4a98a27c9011987a, type: 2}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 2
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -2601,7 +2597,7 @@ SortingGroup:
   m_GameObject: {fileID: 993300858}
   m_Enabled: 1
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
@@ -2823,7 +2819,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -2899,7 +2895,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -754328953
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -3059,13 +3055,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 2
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -3238,7 +3232,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -3261,6 +3255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1302173991}
   - component: {fileID: 1302173992}
+  - component: {fileID: 1302173993}
   m_Layer: 0
   m_Name: HarryApartmentMezzanineTEMPORARY
   m_TagString: Untagged
@@ -3346,6 +3341,76 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!60 &1302173993
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302173990}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7.6875, y: 6.34375}
+    newSize: {x: 7.6875, y: 6.34375}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -3.84375, y: 3.171875}
+      - {x: 3.7647042, y: 3.127356}
+      - {x: 3.7855167, y: -3.1332374}
+      - {x: -2.4018064, y: -3.1719456}
+      - {x: -2.3669782, y: -2.2164497}
+      - {x: 3.4760218, y: -2.2443085}
+      - {x: 3.499671, y: -1.7116423}
+      - {x: 2.44833, y: -1.6932373}
+      - {x: 2.4581509, y: -1.0933619}
+      - {x: 2.9018888, y: -1.1051698}
+      - {x: 2.890524, y: -0.46059847}
+      - {x: 1.8959756, y: -0.47602272}
+      - {x: 1.8957195, y: -0.16728258}
+      - {x: 0.5036478, y: -0.14453316}
+      - {x: 0.48843622, y: 0.6271014}
+      - {x: -0.5061159, y: 0.6217456}
+      - {x: -0.51252604, y: -0.15679169}
+      - {x: -1.3624239, y: -0.15416622}
+      - {x: -1.3533318, y: -0.6884947}
+      - {x: -3.4899986, y: -0.6758256}
+      - {x: -3.4893942, y: -2.769208}
+      - {x: -3.4951782, y: -3.197853}
+      - {x: -3.8458881, y: -3.1668816}
+  m_UseDelaunayMesh: 1
 --- !u!1 &1335931227
 GameObject:
   m_ObjectHideFlags: 0
@@ -3454,7 +3519,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -3566,13 +3631,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 1
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -3647,6 +3710,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1378064691}
   - component: {fileID: 1378064692}
+  - component: {fileID: 1378064694}
+  - component: {fileID: 1378064693}
   m_Layer: 0
   m_Name: HarryApartmentLivingRoom
   m_TagString: Untagged
@@ -3731,6 +3796,147 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!60 &1378064693
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378064690}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.6875, y: 7.6875}
+    newSize: {x: 5.6875, y: 7.6875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.56598663, y: -0.9891472}
+      - {x: 0.108282566, y: -0.9317956}
+      - {x: -0.24745226, y: -0.9350343}
+      - {x: -0.8264117, y: -1.1224217}
+      - {x: -0.8596015, y: -0.96947}
+      - {x: -1.0092831, y: -0.90264034}
+      - {x: -1.1297693, y: -0.9609256}
+      - {x: -1.1553526, y: -1.426897}
+      - {x: -1.1099014, y: -1.801189}
+      - {x: -1.0842428, y: -2.2729082}
+      - {x: 1.0807796, y: -2.2631512}
+      - {x: 1.1070852, y: -1.6511092}
+      - {x: 1.1346846, y: -1.0089765}
+      - {x: 1.015984, y: -0.8773818}
+      - {x: 0.8796425, y: -0.901145}
+      - {x: 0.8128171, y: -1.1228466}
+  m_UseDelaunayMesh: 1
+--- !u!60 &1378064694
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378064690}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.6875, y: 7.6875}
+    newSize: {x: 5.6875, y: 7.6875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -2.8202438, y: 2.5856571}
+      - {x: 2.793561, y: 2.5929928}
+      - {x: 2.7942348, y: -3.8051639}
+      - {x: 0.524735, y: -3.7893314}
+      - {x: 0.5154762, y: -3.5075417}
+      - {x: 1.1471457, y: -3.4972277}
+      - {x: 1.1310377, y: -3.243701}
+      - {x: 1.0596395, y: -3.0024471}
+      - {x: 1.1489935, y: -2.5565505}
+      - {x: 1.7587147, y: -2.5712953}
+      - {x: 1.7692132, y: -2.1700344}
+      - {x: 2.5007195, y: -2.1432838}
+      - {x: 2.5056047, y: -1.136836}
+      - {x: 2.0436049, y: -1.1036901}
+      - {x: 0.8542638, y: -0.57252216}
+      - {x: 0.8126817, y: -0.043524742}
+      - {x: 0.52337503, y: -0.002002716}
+      - {x: 0.50562525, y: 0.36494064}
+      - {x: -0.49995804, y: 0.37910557}
+      - {x: -0.5341382, y: -0.052866936}
+      - {x: -1.2458887, y: -0.21116829}
+      - {x: -1.4311419, y: -0.099383354}
+      - {x: -1.4280815, y: 0.3435192}
+      - {x: -2.1032019, y: -0.050471306}
+      - {x: -2.0978003, y: -0.54132175}
+      - {x: -2.0977898, y: -2.0072074}
+      - {x: -2.5008392, y: -2.0124965}
+      - {x: -2.51754, y: -3.5188627}
+      - {x: -0.49790573, y: -3.5044136}
+      - {x: -0.49731922, y: -3.8121614}
+      - {x: -2.813713, y: -3.8125272}
+  m_UseDelaunayMesh: 1
 --- !u!1 &1382241287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,7 +4015,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 973243019
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2391255840840876710, guid: 2dfeaa3670fe942e09a7f18612c13340, type: 3}
@@ -4001,6 +4207,10 @@ MonoBehaviour:
   radius: 1
   useBoxCollider: 0
   isHostile: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -4241,7 +4451,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -4436,7 +4646,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -4520,8 +4730,7 @@ MonoBehaviour:
   playIntroOnStart: 0
   introDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   onSceneStart:
     m_PersistentCalls:
       m_Calls:
@@ -4831,13 +5040,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 1
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -4912,6 +5119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1667159585}
   - component: {fileID: 1667159586}
+  - component: {fileID: 1667159587}
   m_Layer: 0
   m_Name: HarryApartmentBedroomTEMPORARY
   m_TagString: Untagged
@@ -4994,6 +5202,82 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!60 &1667159587
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667159584}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.6875, y: 7.6875}
+    newSize: {x: 1.82, y: 2.46}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -2.84375, y: 3.84375}
+      - {x: 2.826707, y: 3.8181143}
+      - {x: 2.7797165, y: -3.7861004}
+      - {x: 1.4732914, y: -3.7938673}
+      - {x: 1.472228, y: -3.51981}
+      - {x: 2.5091581, y: -3.5007293}
+      - {x: 2.504899, y: -2.4874516}
+      - {x: 2.0376978, y: -2.4941664}
+      - {x: 2.0237627, y: -1.6063018}
+      - {x: 1.8077354, y: -1.610045}
+      - {x: 1.8161097, y: -0.45745516}
+      - {x: 1.9659033, y: -0.4254074}
+      - {x: 1.8636627, y: -0.46866035}
+      - {x: 2.4979105, y: -0.47239542}
+      - {x: 2.4941626, y: 0.08739042}
+      - {x: 0.76242876, y: 0.0821352}
+      - {x: 0.7558408, y: -1.8500557}
+      - {x: -0.74852514, y: -1.8803988}
+      - {x: -0.7796135, y: 0.12587547}
+      - {x: -2.083053, y: 0.11839533}
+      - {x: -2.0825567, y: -2.17877}
+      - {x: -2.5062504, y: -2.1742635}
+      - {x: -2.5078182, y: -2.5552645}
+      - {x: -1.8689909, y: -2.538741}
+      - {x: -1.8764424, y: -3.5002756}
+      - {x: 0.4550624, y: -3.4859962}
+      - {x: 0.4599986, y: -3.8273172}
+      - {x: -2.8041224, y: -3.8040047}
+      - {x: -2.8563972, y: 1.8562899}
+  m_UseDelaunayMesh: 1
 --- !u!1 &1687311111
 GameObject:
   m_ObjectHideFlags: 0
@@ -5456,7 +5740,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -5744,6 +6028,10 @@ MonoBehaviour:
   radius: 1
   useBoxCollider: 0
   isHostile: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -6019,25 +6307,13 @@ MonoBehaviour:
   setFlagOnSuccess: readJournal
   successDialogue:
     showDialogue: 1
-    dialogueText:
-    - "How long must this go on? I think I\u2019m at wit\u2019s end."
-    - "The screams of the innocent lives I\u2019ve taken haunt my dream every night.
-      The guilt is unbearable."
-    - "I can\u2019t even imagine what a normal life could have been like."
-    - "Maybe I should tell Dhalia, I\u2019ve got to find a way to break the cycle
-      before its too late."
-    - A note is left at the end of the journal entry
-    - Check the closet Dhalia.
-    characterName: Harry's Diary
+    lines: []
   missingItemDialogue:
     showDialogue: 0
-    dialogueText:
-    - The fires cold. You should light it.
-    characterName: 
+    lines: []
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   onSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -6059,6 +6335,10 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -6256,13 +6536,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 1
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -6374,7 +6652,7 @@ SortingGroup:
   m_GameObject: {fileID: 1963684218}
   m_Enabled: 1
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
@@ -6762,6 +7040,10 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -6892,18 +7174,13 @@ MonoBehaviour:
   setFlagOnSuccess: setFire
   successDialogue:
     showDialogue: 1
-    dialogueText:
-    - Maybe the fire will illuminate hidden items
-    characterName: 
+    lines: []
   missingItemDialogue:
     showDialogue: 1
-    dialogueText:
-    - The fires cold. You should light it.
-    characterName: 
+    lines: []
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   onSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -7123,7 +7400,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: b71de20c2395c4ca099d639c0c9a2278, type: 3}
@@ -7235,18 +7512,13 @@ MonoBehaviour:
   setFlagOnSuccess: discoverBody
   successDialogue:
     showDialogue: 1
-    dialogueText:
-    - Something falls out
-    characterName: 
+    lines: []
   missingItemDialogue:
     showDialogue: 0
-    dialogueText:
-    - The fires cold. You should light it.
-    characterName: 
+    lines: []
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   onSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -7268,6 +7540,10 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -7489,7 +7765,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1912798927
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
