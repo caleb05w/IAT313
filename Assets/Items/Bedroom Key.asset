@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Bedroom Key
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bedroom Key
-  icon: {fileID: 5086202788678455652, guid: bc8d5c74ee93a49babfc7769b6c2c23c, type: 3}
+  icon: {fileID: 1694913177206695654, guid: 56138c7296e9942bb9c7ad143767d85d, type: 3}
