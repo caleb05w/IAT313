@@ -16,6 +16,19 @@ public class Inventory : MonoBehaviour
     // InventoryUI subscribes to this to know when to redraw
     public event System.Action OnChanged;
 
+    // Fired when an item is being consumed — InventoryUI animates it, then calls RemoveItem
+    public event System.Action<ItemData> OnItemConsumed;
+
+    // Returns the index of an item (-1 if not found)
+    public int IndexOf(ItemData item) => items.IndexOf(item);
+
+    // Triggers the consume animation via InventoryUI; actual removal happens after animation
+    public void ConsumeItem(ItemData item)
+    {
+        if (!items.Contains(item)) return;
+        OnItemConsumed?.Invoke(item);
+    }
+
     // Returns the item at a given slot
     public ItemData GetItem(int index) => (index >= 0 && index < items.Count) ? items[index] : null;
 
@@ -24,6 +37,15 @@ public class Inventory : MonoBehaviour
 
     // Returns true if item is already in inventory
     public bool HasItem(ItemData item) => items.Contains(item);
+
+    // Selects the given item if it exists in the inventory
+    public void SelectItem(ItemData item)
+    {
+        int idx = items.IndexOf(item);
+        if (idx < 0) return;
+        SelectedIndex = idx;
+        OnChanged?.Invoke();
+    }
 
     // Adds an item only if it doesn't already exist — returns false if duplicate
     public bool AddItem(ItemData item)

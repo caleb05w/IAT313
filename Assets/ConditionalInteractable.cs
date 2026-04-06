@@ -100,7 +100,7 @@ public class ConditionalInteractable : MonoBehaviour
         if (requiresItems && consumeItemsOnSuccess && playerInventory != null)
         {
             foreach (var item in requiredItems)
-                playerInventory.RemoveItem(item);
+                playerInventory.ConsumeItem(item);
         }
 
         if (!string.IsNullOrEmpty(setFlagOnSuccess))

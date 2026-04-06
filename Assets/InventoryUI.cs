@@ -5,9 +5,8 @@ using UnityEngine.InputSystem;
 using TMPro;
 
 // Displays inventory items above the player's head.
-// 1 item  → center only, no animation.
-// 2 items → symmetric pair (-slotStep/2 and +slotStep/2), smooth slide with wrap.
-// 3+items → left + center + right, smooth slide with wrap.
+// 1–3 items → all shown at fixed positions, selector moves between them.
+// 4+ items  → left + center + right, smooth slide with wrap.
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
@@ -33,6 +32,7 @@ public class InventoryUI : MonoBehaviour
     private bool isOpen      = false;
     private bool isAnimating = false;
     private Coroutine openCoroutine;
+    private Coroutine autoCloseCoroutine;
 
     // -------------------------------------------------------------------------
     void Awake()
@@ -83,11 +83,41 @@ public class InventoryUI : MonoBehaviour
         nameLabel.gameObject.SetActive(false);
 
         inventory.OnChanged += OnInventoryChanged;
+        inventory.OnItemConsumed += OnItemConsumed;
     }
 
     void OnDestroy()
     {
-        if (inventory != null) inventory.OnChanged -= OnInventoryChanged;
+        if (inventory != null)
+        {
+            inventory.OnChanged -= OnInventoryChanged;
+            inventory.OnItemConsumed -= OnItemConsumed;
+        }
+    }
+
+    public void Open()
+    {
+        if (isOpen) return;
+        isOpen = true;
+        if (openCoroutine != null) StopCoroutine(openCoroutine);
+        openCoroutine = StartCoroutine(AnimateToggle(true));
+        ScheduleAutoClose(2f);
+    }
+
+    void ScheduleAutoClose(float delay)
+    {
+        if (autoCloseCoroutine != null) StopCoroutine(autoCloseCoroutine);
+        autoCloseCoroutine = StartCoroutine(AutoClose(delay));
+    }
+
+    IEnumerator AutoClose(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (!isOpen) yield break;
+        isOpen = false;
+        if (openCoroutine != null) StopCoroutine(openCoroutine);
+        openCoroutine = StartCoroutine(AnimateToggle(false));
+        autoCloseCoroutine = null;
     }
 
     // -------------------------------------------------------------------------
@@ -96,6 +126,7 @@ public class InventoryUI : MonoBehaviour
         if (Keyboard.current[toggleKey].wasPressedThisFrame &&
             (GameManager.Instance == null || GameManager.Instance.IsState(GameManager.GameState.Explore)))
         {
+            if (autoCloseCoroutine != null) { StopCoroutine(autoCloseCoroutine); autoCloseCoroutine = null; }
             isOpen = !isOpen;
             if (openCoroutine != null) StopCoroutine(openCoroutine);
             openCoroutine = StartCoroutine(AnimateToggle(isOpen));
@@ -145,6 +176,67 @@ public class InventoryUI : MonoBehaviour
             if (nameLabel != null) nameLabel.gameObject.SetActive(false);
         }
         openCoroutine = null;
+    }
+
+    // -------------------------------------------------------------------------
+    void OnItemConsumed(ItemData item)
+    {
+        Open();
+        Image slot = GetSlotForItem(item);
+        StartCoroutine(AnimateConsume(slot, item));
+    }
+
+    Image GetSlotForItem(ItemData item)
+    {
+        int idx   = inventory.IndexOf(item);
+        int sel   = inventory.SelectedIndex;
+        int count = inventory.Count;
+
+        if (count == 1) return centerSlot;
+        if (count == 2) return idx == 0 ? leftSlot : rightSlot;
+        if (count == 3)
+        {
+            if (idx == 0) return leftSlot;
+            if (idx == 1) return centerSlot;
+            return rightSlot;
+        }
+        // 4+ items
+        if (idx == sel)                         return centerSlot;
+        if (idx == (sel + 1) % count)           return rightSlot;
+        if (idx == (sel - 1 + count) % count)   return leftSlot;
+        return null;
+    }
+
+    IEnumerator AnimateConsume(Image slot, ItemData item)
+    {
+        // Wait for open animation to finish so slots exist
+        while (openCoroutine != null) yield return null;
+
+        // Re-resolve slot in case Rebuild ran during open
+        slot = GetSlotForItem(item);
+
+        isAnimating = true;
+
+        if (slot != null)
+        {
+            var rt = slot.GetComponent<RectTransform>();
+            Vector3 startScale = rt.localScale;
+            Color startColor   = slot.color;
+            float elapsed = 0f;
+            float duration = 0.5f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+                rt.localScale = Vector3.Lerp(startScale, Vector3.zero, t);
+                slot.color    = new Color(1f, 1f, 1f, Mathf.Lerp(startColor.a, 0f, t));
+                yield return null;
+            }
+        }
+
+        inventory.RemoveItem(item);
+        isAnimating = false;
     }
 
     // -------------------------------------------------------------------------
@@ -244,21 +336,20 @@ public class InventoryUI : MonoBehaviour
         Vector2 outgoingEnd, incomingStart;
         float   incomingTargetAlpha;
 
-        float offScreen = slotStep * 2f;
+        float offScreen     = slotStep * 2f;
+        incomingTargetAlpha = 0.2f;
 
         if (direction < 0) // slide left
         {
-            outgoingEnd         = new Vector2(-offScreen, 0f);
-            incomingStart       = new Vector2( offScreen, 0f);
-            incomingTargetAlpha = 0.2f;
-            outgoing            = leftSlot;
+            outgoingEnd   = new Vector2(-offScreen, 0f);
+            incomingStart = new Vector2( offScreen, 0f);
+            outgoing      = leftSlot;
         }
         else               // slide right
         {
-            outgoingEnd         = new Vector2( offScreen, 0f);
-            incomingStart       = new Vector2(-offScreen, 0f);
-            incomingTargetAlpha = 0.2f;
-            outgoing            = rightSlot;
+            outgoingEnd   = new Vector2( offScreen, 0f);
+            incomingStart = new Vector2(-offScreen, 0f);
+            outgoing      = rightSlot;
         }
 
         int incomingIdx = direction < 0

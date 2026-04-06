@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PickupItem : MonoBehaviour
 {
     [SerializeField] private ItemData itemData;
+    [SerializeField] private AudioSource pickupSound;
 
     private bool playerInRange = false;
     private Inventory inventory;
@@ -16,17 +17,16 @@ public class PickupItem : MonoBehaviour
             GetComponentInChildren<LabelController>()?.SetDefaultText(itemData.itemName);
     }
 
-    // Wire to InteractionDetector's onPlayerEnter
-    public void OnPlayerEnter()
+    void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.CompareTag("Player")) return;
         playerInRange = true;
-        var player = GameObject.FindWithTag("Player");
-        inventory = player != null ? player.GetComponent<Inventory>() : null;
+        inventory = other.GetComponent<Inventory>();
     }
 
-    // Wire to InteractionDetector's onPlayerExit
-    public void OnPlayerExit()
+    void OnTriggerExit2D(Collider2D other)
     {
+        if (!other.CompareTag("Player")) return;
         playerInRange = false;
         inventory = null;
     }
@@ -38,6 +38,13 @@ public class PickupItem : MonoBehaviour
         if (GameManager.Instance != null && !GameManager.Instance.IsState(GameManager.GameState.Explore)) return;
 
         if (inventory.AddItem(itemData))
+        {
+            inventory.SelectItem(itemData);
+            FindFirstObjectByType<InventoryUI>()?.Open();
+            var source = pickupSound != null ? pickupSound : GetComponent<AudioSource>();
+            if (source != null && source.clip != null)
+                AudioSource.PlayClipAtPoint(source.clip, transform.position, source.volume);
             Destroy(gameObject);
+        }
     }
 }
