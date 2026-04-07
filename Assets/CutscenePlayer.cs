@@ -5,12 +5,24 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
 
+public enum SlideLayout { TextOnly, TextWithImage }
+
+[System.Serializable]
+public class WordHighlight
+{
+    public string word;
+    public Color color = new Color(0.91f, 0.66f, 0.22f); // amber default
+}
+
 [System.Serializable]
 public class CutsceneSlide
 {
+    public SlideLayout layout;
     public Sprite image;
     [TextArea] public string text;
     public bool rollingText;
+    [Tooltip("Words to highlight, each with its own colour.")]
+    public WordHighlight[] highlights;
     [Tooltip("Music to play when this slide is shown. Leave empty to keep current music.")]
     public AudioClip music;
 }
@@ -22,9 +34,17 @@ public class CutscenePlayer : MonoBehaviour
 {
     [Header("Slides")]
     [SerializeField] private CutsceneSlide[] slides;
+
+    [Header("Layout: Text Only")]
+    [SerializeField] private GameObject textOnlyLayout;
+    [SerializeField] private TextMeshProUGUI textOnlyDialogue;
+    [SerializeField] private TextMeshProUGUI textOnlyProceed;
+
+    [Header("Layout: Text With Image")]
+    [SerializeField] private GameObject textWithImageLayout;
     [SerializeField] private Image displayImage;
-    [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private TextMeshProUGUI proceedLabel;
+    [SerializeField] private TextMeshProUGUI textWithImageDialogue;
+    [SerializeField] private TextMeshProUGUI textWithImageProceed;
 
     [Header("Audio")]
     [SerializeField] private AudioSource musicSource;
@@ -46,11 +66,16 @@ public class CutscenePlayer : MonoBehaviour
     [SerializeField] private TeleportPad.SpawnDirection spawnDirection = TeleportPad.SpawnDirection.Down;
 
     private CanvasGroup canvasGroup;
-    private int currentSlide = 0;
+    private int currentSlide  = 0;
     private bool isShowing    = false;
     private bool isAnimating  = false;
     private bool isTyping     = false;
     private Coroutine typeCoroutine;
+    private SlideLayout activeLayout;
+
+    // Returns the dialogue/proceed components for whichever layout is currently active
+    private TextMeshProUGUI DialogueText => activeLayout == SlideLayout.TextOnly ? textOnlyDialogue     : textWithImageDialogue;
+    private TextMeshProUGUI ProceedLabel => activeLayout == SlideLayout.TextOnly ? textOnlyProceed      : textWithImageProceed;
 
     void Awake()
     {
@@ -59,6 +84,8 @@ public class CutscenePlayer : MonoBehaviour
         canvasGroup.interactable   = false;
         canvasGroup.blocksRaycasts = false;
 
+        if (textOnlyLayout != null)      textOnlyLayout.SetActive(false);
+        if (textWithImageLayout != null) textWithImageLayout.SetActive(false);
     }
 
     void Update()
@@ -72,7 +99,7 @@ public class CutscenePlayer : MonoBehaviour
                 // skip to full text immediately, then fall through to advance
                 if (typeCoroutine != null) StopCoroutine(typeCoroutine);
                 isTyping = false;
-                if (dialogueText != null) dialogueText.text = slides[currentSlide].text;
+                if (DialogueText != null) DialogueText.text = ApplyHighlights(slides[currentSlide]);
             }
 
             if (currentSlide < slides.Length - 1)
@@ -90,37 +117,59 @@ public class CutscenePlayer : MonoBehaviour
         StartCoroutine(FadeIn());
     }
 
+    private void ApplyLayout(SlideLayout layout)
+    {
+        activeLayout = layout;
+        if (textOnlyLayout != null)      textOnlyLayout.SetActive(layout == SlideLayout.TextOnly);
+        if (textWithImageLayout != null) textWithImageLayout.SetActive(layout == SlideLayout.TextWithImage);
+    }
+
     private void ApplySlide(int index, bool instant = false)
     {
-        if (displayImage != null) displayImage.sprite = slides[index].image;
+        var slide = slides[index];
 
-        var clip = slides[index].music;
+        ApplyLayout(slide.layout);
+
+        if (displayImage != null) displayImage.sprite = slide.image;
+
+        var clip = slide.music;
         if (musicSource && clip != null && musicSource.clip != clip)
         {
             musicSource.clip = clip;
             musicSource.Play();
         }
 
-        if (dialogueText != null)
+        if (DialogueText != null)
         {
-            if (slides[index].rollingText)
+            string processedText = ApplyHighlights(slide);
+            if (slide.rollingText)
             {
-                dialogueText.text = "";
+                DialogueText.text = "";
                 if (typeCoroutine != null) StopCoroutine(typeCoroutine);
-                typeCoroutine = StartCoroutine(TypeText(slides[index].text));
+                typeCoroutine = StartCoroutine(TypeText(processedText));
             }
             else
             {
-                dialogueText.text = slides[index].text;
+                DialogueText.text = processedText;
             }
         }
 
         if (instant)
         {
-            if (displayImage != null) displayImage.color = new Color(1f, 1f, 1f, 0f);
-            if (dialogueText != null) dialogueText.color = new Color(1f, 1f, 1f, 0f);
-            if (proceedLabel != null) proceedLabel.color = new Color(1f, 1f, 1f, 0f);
+            if (displayImage  != null) displayImage.color  = new Color(1f, 1f, 1f, 0f);
+            if (DialogueText  != null) DialogueText.color  = new Color(1f, 1f, 1f, 0f);
+            if (ProceedLabel  != null) ProceedLabel.color  = new Color(1f, 1f, 1f, 0f);
         }
+    }
+
+    private string ApplyHighlights(CutsceneSlide slide)
+    {
+        string result = slide.text;
+        if (slide.highlights == null) return result;
+        foreach (var h in slide.highlights)
+            if (!string.IsNullOrEmpty(h.word))
+                result = result.Replace(h.word, $"<color=#{ColorUtility.ToHtmlStringRGB(h.color)}>{h.word}</color>");
+        return result;
     }
 
     private IEnumerator TypeText(string text)
@@ -129,7 +178,7 @@ public class CutscenePlayer : MonoBehaviour
         for (int i = 0; i <= text.Length; i++)
         {
             if (!isTyping) yield break; // skipped externally
-            if (dialogueText != null) dialogueText.text = text.Substring(0, i);
+            if (DialogueText != null) DialogueText.text = text.Substring(0, i);
             yield return new WaitForSeconds(charDelay);
         }
         isTyping = false;
@@ -143,7 +192,7 @@ public class CutscenePlayer : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
 
         yield return Fade(0f, 1f, fadeInDuration);
-        yield return FadeImage(0f, 1f, fadeInDuration);
+        yield return FadeContent(0f, 1f, fadeInDuration);
 
         isAnimating = false;
     }
@@ -151,12 +200,12 @@ public class CutscenePlayer : MonoBehaviour
     private IEnumerator NextSlide()
     {
         isAnimating = true;
-        yield return FadeImage(1f, 0f, fadeOutDuration);
+        yield return FadeContent(1f, 0f, fadeOutDuration);
 
         currentSlide++;
         ApplySlide(currentSlide);
 
-        yield return FadeImage(0f, 1f, fadeInDuration);
+        yield return FadeContent(0f, 1f, fadeInDuration);
         isAnimating = false;
     }
 
@@ -166,7 +215,7 @@ public class CutscenePlayer : MonoBehaviour
         isShowing   = false;
 
         // fade content to black
-        yield return FadeImage(1f, 0f, fadeOutDuration);
+        yield return FadeContent(1f, 0f, fadeOutDuration);
 
         if (!string.IsNullOrEmpty(targetScene))
         {
@@ -218,7 +267,7 @@ public class CutscenePlayer : MonoBehaviour
         canvasGroup.alpha = to;
     }
 
-    private IEnumerator FadeImage(float from, float to, float duration)
+    private IEnumerator FadeContent(float from, float to, float duration)
     {
         float elapsed = 0f;
         while (elapsed < duration)
@@ -226,12 +275,12 @@ public class CutscenePlayer : MonoBehaviour
             elapsed += Time.deltaTime;
             float a = Mathf.SmoothStep(from, to, elapsed / duration);
             if (displayImage != null) displayImage.color = new Color(1f, 1f, 1f, a);
-            if (dialogueText != null) dialogueText.color = new Color(1f, 1f, 1f, a);
-            if (proceedLabel != null) proceedLabel.color = new Color(1f, 1f, 1f, a * 0.25f);
+            if (DialogueText != null) DialogueText.color = new Color(1f, 1f, 1f, a);
+            if (ProceedLabel != null) ProceedLabel.color = new Color(1f, 1f, 1f, a * 0.25f);
             yield return null;
         }
-        if (displayImage  != null) displayImage.color  = new Color(1f, 1f, 1f, to);
-        if (dialogueText  != null) dialogueText.color  = new Color(1f, 1f, 1f, to);
-        if (proceedLabel  != null) proceedLabel.color  = new Color(1f, 1f, 1f, to * 0.25f);
+        if (displayImage != null) displayImage.color = new Color(1f, 1f, 1f, to);
+        if (DialogueText != null) DialogueText.color = new Color(1f, 1f, 1f, to);
+        if (ProceedLabel != null) ProceedLabel.color = new Color(1f, 1f, 1f, to * 0.25f);
     }
 }
