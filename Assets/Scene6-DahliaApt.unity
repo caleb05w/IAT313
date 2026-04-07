@@ -2688,9 +2688,9 @@ MonoBehaviour:
   advanceKey: 19
   charDelay: 0.04
   flagOnComplete: 
-  targetScene: Scene5-HarryApt
-  targetSpawnPointName: Scene5-HarryApt-spawn
-  spawnDirection: 1
+  targetScene: 'Scene7-MansionB '
+  targetSpawnPointName: 'Scene7-MansionB '
+  spawnDirection: 4
 --- !u!225 &1063238909
 CanvasGroup:
   m_ObjectHideFlags: 0

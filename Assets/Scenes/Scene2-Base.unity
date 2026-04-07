@@ -3607,7 +3607,7 @@ MonoBehaviour:
   flagOnComplete: 
   targetScene: Scene3-Cafe
   targetSpawnPointName: Scene3-Spawn
-  spawnDirection: 2
+  spawnDirection: 4
 --- !u!225 &793176859
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -6687,7 +6687,7 @@ GameObject:
   - component: {fileID: 1301051364}
   - component: {fileID: 1301051366}
   - component: {fileID: 1301051365}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7862,7 +7862,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600231002}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Animation: {fileID: 0}
   m_Animations: []
@@ -7879,7 +7879,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600231002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: 96edba6f3286b413ea7bc218ad7531b0, type: 2}
   m_CullingMode: 0
@@ -8074,7 +8074,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600231002}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8160,7 +8160,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1791801109
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8133166929780990588, guid: ac924a6e57a0f4b5484162c1a652e043, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8558,6 +8558,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 3929839700874151375, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4877295956552982270, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.89
@@ -8601,7 +8605,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2934239154302306895, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1988750805}
   m_SourcePrefab: {fileID: 100100000, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
 --- !u!4 &1709220422 stripped
 Transform:
@@ -9410,7 +9417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1773726780
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9806,7 +9813,7 @@ GameObject:
   - component: {fileID: 1829898437}
   - component: {fileID: 1829898436}
   - component: {fileID: 1829898435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CM Vcam1 (DO NOT USE)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10599,6 +10606,44 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1988750803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2934239154302306895, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
+  m_PrefabInstance: {fileID: 1709220421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1988750805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988750803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8be8c12e2c142cbae124ec61484e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAppearance
+  appearances:
+  - sceneName: Scene1-Alley
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene2-Base
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene3-Cafe
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene4-Mansion
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene5-HarryApt
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene6-DahliaApt
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene7-MansionB
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene8
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene9
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene10
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
 --- !u!1 &1992373241
 GameObject:
   m_ObjectHideFlags: 0

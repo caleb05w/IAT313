@@ -1218,13 +1218,54 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2934239154302306895, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 259386113}
   m_SourcePrefab: {fileID: 100100000, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
 --- !u!4 &259386111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4877295956552982270, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
   m_PrefabInstance: {fileID: 259386110}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &259386112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2934239154302306895, guid: c7702709991ae4f2ab0e0af60f68d732, type: 3}
+  m_PrefabInstance: {fileID: 259386110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &259386113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259386112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8be8c12e2c142cbae124ec61484e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAppearance
+  appearances:
+  - sceneName: Scene1-Alley
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene2-Base
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene3-Cafe
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene4-Mansion
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene5-HarryApt
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene6-DahliaApt
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene7-MansionB
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene8
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene9
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
+  - sceneName: Scene10
+    animatorController: {fileID: 9100000, guid: 318d4440a1fcf498185da1a34ae701e7, type: 2}
 --- !u!1 &281532852
 GameObject:
   m_ObjectHideFlags: 0
