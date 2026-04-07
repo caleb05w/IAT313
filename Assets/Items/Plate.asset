@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Plate
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Plate
-  icon: {fileID: -468918311067686906, guid: bc8d5c74ee93a49babfc7769b6c2c23c, type: 3}
+  icon: {fileID: -8938819534478884857, guid: e0ea7a9b6a1e57e4ca859ca170986341, type: 3}
