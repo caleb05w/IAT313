@@ -41,7 +41,16 @@ public class CutsceneSlide
 [RequireComponent(typeof(CanvasGroup))]
 public class CutscenePlayer : MonoBehaviour
 {
-    [Header("Slides")]
+    [Header("Auto Play")]
+    [Tooltip("If true, Start Slides play automatically when the scene begins.")]
+    [SerializeField] private bool playOnStart = false;
+
+    [Header("Start Slides")]
+    [Tooltip("Plays automatically on scene start when Play On Start is enabled.")]
+    [SerializeField] private CutsceneSlide[] startSlides;
+
+    [Header("End Slides")]
+    [Tooltip("Plays when Show() is called (e.g. wired to an InteractionDetector event).")]
     [SerializeField] private CutsceneSlide[] slides;
 
     [Header("Layout: Text Only")]
@@ -75,8 +84,9 @@ public class CutscenePlayer : MonoBehaviour
     [SerializeField] private TeleportPad.SpawnDirection spawnDirection = TeleportPad.SpawnDirection.Down;
 
     private CanvasGroup canvasGroup;
-    private int currentSlide   = 0;
-    private bool isShowing     = false;
+    private int currentSlide    = 0;
+    private bool inStartPhase   = false;
+    private bool isShowing      = false;
     private bool isAnimating   = false;
     private bool isTyping      = false;
     private bool finishedTyping = false;
@@ -84,9 +94,22 @@ public class CutscenePlayer : MonoBehaviour
     private SlideLayout activeLayout;
     private List<Coroutine> soundCoroutines = new List<Coroutine>();
 
+    private CutsceneSlide[] ActiveSlides => inStartPhase ? startSlides : slides;
+
     // Returns the dialogue/proceed components for whichever layout is currently active
     private TextMeshProUGUI DialogueText => activeLayout == SlideLayout.TextOnly ? textOnlyDialogue     : textWithImageDialogue;
     private TextMeshProUGUI ProceedLabel => activeLayout == SlideLayout.TextOnly ? textOnlyProceed      : textWithImageProceed;
+
+    void Start()
+    {
+        if (playOnStart && startSlides != null && startSlides.Length > 0)
+        {
+            inStartPhase = true;
+            currentSlide = 0;
+            ApplySlide(0, instant: true);
+            StartCoroutine(FadeIn());
+        }
+    }
 
     void Awake()
     {
@@ -111,13 +134,13 @@ public class CutscenePlayer : MonoBehaviour
                 if (typeCoroutine != null) StopCoroutine(typeCoroutine);
                 isTyping = false;
                 finishedTyping = true;
-                if (DialogueText != null) DialogueText.text = ApplyHighlights(slides[currentSlide]);
+                if (DialogueText != null) DialogueText.text = ApplyHighlights(ActiveSlides[currentSlide]);
                 return;
             }
 
             if (!finishedTyping) return;
 
-            if (currentSlide < slides.Length - 1)
+            if (currentSlide < ActiveSlides.Length - 1)
                 StartCoroutine(NextSlide());
             else
                 StartCoroutine(EndCutscene());
@@ -126,7 +149,8 @@ public class CutscenePlayer : MonoBehaviour
 
     public void Show()
     {
-        if (isShowing) return;
+        if (isShowing || slides == null || slides.Length == 0) return;
+        inStartPhase = false;
         currentSlide = 0;
         ApplySlide(0, instant: true);
         StartCoroutine(FadeIn());
@@ -141,7 +165,7 @@ public class CutscenePlayer : MonoBehaviour
 
     private void ApplySlide(int index, bool instant = false)
     {
-        var slide = slides[index];
+        var slide = ActiveSlides[index];
 
         ApplyLayout(slide.layout);
 
@@ -245,7 +269,7 @@ public class CutscenePlayer : MonoBehaviour
         // fade content to black
         yield return FadeContent(1f, 0f, fadeOutDuration);
 
-        if (!string.IsNullOrEmpty(targetScene))
+        if (!inStartPhase && !string.IsNullOrEmpty(targetScene))
         {
             // screen is black — load scene now, canvas dies with this scene
             if (GameManager.Instance != null)

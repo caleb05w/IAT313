@@ -10560,6 +10560,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5751978dfa734eea81e24a0dec56305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
+  playOnStart: 0
+  startSlides:
+  - layout: 0
+    image: {fileID: 0}
+    text: Test
+    rollingText: 0
+    highlights: []
+    sounds: []
   slides:
   - layout: 0
     image: {fileID: 0}
