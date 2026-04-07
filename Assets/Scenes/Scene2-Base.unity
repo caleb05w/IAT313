@@ -3674,15 +3674,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
   slides:
-  - image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
+  - layout: 0
+    image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
     text: 'Rolling Narrative Text
 
 '
     rollingText: 1
+    highlights: []
     music: {fileID: 0}
+  textOnlyLayout: {fileID: 0}
+  textOnlyDialogue: {fileID: 0}
+  textOnlyProceed: {fileID: 0}
+  textWithImageLayout: {fileID: 0}
   displayImage: {fileID: 2113214259}
-  dialogueText: {fileID: 978656379}
-  proceedLabel: {fileID: 35669425}
+  textWithImageDialogue: {fileID: 0}
+  textWithImageProceed: {fileID: 0}
   musicSource: {fileID: 0}
   fadeInDuration: 0.5
   fadeOutDuration: 0.5
