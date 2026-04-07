@@ -826,8 +826,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 11232a57d11cb426baa0c9a447eb6a72, type: 2}
+  m_sharedMaterial: {fileID: -6654898482031873950, guid: 11232a57d11cb426baa0c9a447eb6a72, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -924,7 +924,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -6654898482031873950, guid: 11232a57d11cb426baa0c9a447eb6a72, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9376,6 +9376,7 @@ MonoBehaviour:
   fadeOutDuration: 0.5
   advanceKey: 19
   charDelay: 0.04
+  flagOnComplete: 
   targetScene: Scene2-Base
   targetSpawnPointName: Scene2-spawn
   spawnDirection: 4
