@@ -3634,7 +3634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &793176858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3663,11 +3663,11 @@ MonoBehaviour:
     sounds: []
   textOnlyLayout: {fileID: 792597833}
   textOnlyDialogue: {fileID: 1192217230}
-  textOnlyProceed: {fileID: 0}
+  textOnlyProceed: {fileID: 909485997}
   textWithImageLayout: {fileID: 1769890704}
   displayImage: {fileID: 1344051383}
   textWithImageDialogue: {fileID: 985853051}
-  textWithImageProceed: {fileID: 0}
+  textWithImageProceed: {fileID: 909485997}
   sfxSource: {fileID: 0}
   fadeInDuration: 0.5
   fadeOutDuration: 0.5

@@ -75,10 +75,11 @@ public class CutscenePlayer : MonoBehaviour
     [SerializeField] private TeleportPad.SpawnDirection spawnDirection = TeleportPad.SpawnDirection.Down;
 
     private CanvasGroup canvasGroup;
-    private int currentSlide  = 0;
-    private bool isShowing    = false;
-    private bool isAnimating  = false;
-    private bool isTyping     = false;
+    private int currentSlide   = 0;
+    private bool isShowing     = false;
+    private bool isAnimating   = false;
+    private bool isTyping      = false;
+    private bool finishedTyping = false;
     private Coroutine typeCoroutine;
     private SlideLayout activeLayout;
     private List<Coroutine> soundCoroutines = new List<Coroutine>();
@@ -106,11 +107,15 @@ public class CutscenePlayer : MonoBehaviour
         {
             if (isTyping)
             {
-                // skip to full text immediately, then fall through to advance
+                // First press while typing: complete the text, don't advance yet
                 if (typeCoroutine != null) StopCoroutine(typeCoroutine);
                 isTyping = false;
+                finishedTyping = true;
                 if (DialogueText != null) DialogueText.text = ApplyHighlights(slides[currentSlide]);
+                return;
             }
+
+            if (!finishedTyping) return;
 
             if (currentSlide < slides.Length - 1)
                 StartCoroutine(NextSlide());
@@ -153,19 +158,17 @@ public class CutscenePlayer : MonoBehaviour
                 if (s.clip != null)
                     soundCoroutines.Add(StartCoroutine(PlaySoundDelayed(s.clip, s.offset)));
 
-        if (DialogueText != null)
+        if (slide.rollingText)
         {
-            string processedText = ApplyHighlights(slide);
-            if (slide.rollingText)
-            {
-                DialogueText.text = "";
-                if (typeCoroutine != null) StopCoroutine(typeCoroutine);
-                typeCoroutine = StartCoroutine(TypeText(processedText));
-            }
-            else
-            {
-                DialogueText.text = processedText;
-            }
+            finishedTyping = false;
+            if (typeCoroutine != null) StopCoroutine(typeCoroutine);
+            if (DialogueText != null) DialogueText.text = "";
+            typeCoroutine = StartCoroutine(TypeText(slide.text, slide));
+        }
+        else
+        {
+            finishedTyping = true;
+            if (DialogueText != null) DialogueText.text = ApplyHighlights(slide);
         }
 
         if (instant)
@@ -176,14 +179,15 @@ public class CutscenePlayer : MonoBehaviour
         }
     }
 
-    private string ApplyHighlights(CutsceneSlide slide)
+    private string ApplyHighlights(CutsceneSlide slide) => ApplyHighlights(slide.text, slide);
+
+    private string ApplyHighlights(string text, CutsceneSlide slide)
     {
-        string result = slide.text;
-        if (slide.highlights == null) return result;
+        if (slide.highlights == null) return text;
         foreach (var h in slide.highlights)
             if (!string.IsNullOrEmpty(h.word))
-                result = result.Replace(h.word, $"<color=#{ColorUtility.ToHtmlStringRGB(h.color)}>{h.word}</color>");
-        return result;
+                text = text.Replace(h.word, $"<color=#{ColorUtility.ToHtmlStringRGB(h.color)}>{h.word}</color>");
+        return text;
     }
 
     private IEnumerator PlaySoundDelayed(AudioClip clip, float delay)
@@ -192,16 +196,20 @@ public class CutscenePlayer : MonoBehaviour
         sfxSource.PlayOneShot(clip);
     }
 
-    private IEnumerator TypeText(string text)
+    private IEnumerator TypeText(string plainText, CutsceneSlide slide)
     {
         isTyping = true;
-        for (int i = 0; i <= text.Length; i++)
+        for (int i = 0; i <= plainText.Length; i++)
         {
             if (!isTyping) yield break; // skipped externally
-            if (DialogueText != null) DialogueText.text = text.Substring(0, i);
+            // Apply highlights to each substring — words colour the moment they complete
+            if (DialogueText != null)
+                DialogueText.text = ApplyHighlights(plainText.Substring(0, i), slide);
+            if (i == plainText.Length) break; // full text shown — exit without an extra delay
             yield return new WaitForSeconds(charDelay);
         }
         isTyping = false;
+        finishedTyping = true;
     }
 
     private IEnumerator FadeIn()

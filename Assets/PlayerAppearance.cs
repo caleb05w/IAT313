@@ -36,11 +36,35 @@ public class PlayerAppearance : MonoBehaviour
 
     private void ApplyForScene(string sceneName)
     {
+        if (animator == null) return;
+
         foreach (var entry in appearances)
         {
             if (entry.sceneName == sceneName && entry.animatorController != null)
             {
+                // Only read params if a controller is already loaded — avoids NullRef on first load
+                bool  isWalking  = false;
+                float inputX     = 0f;
+                float inputY     = 0f;
+                float lastInputX = 0f;
+                float lastInputY = -1f; // default idle faces down
+
+                if (animator.runtimeAnimatorController != null)
+                {
+                    isWalking  = animator.GetBool("isWalking");
+                    inputX     = animator.GetFloat("InputX");
+                    inputY     = animator.GetFloat("InputY");
+                    lastInputX = animator.GetFloat("LastInputX");
+                    lastInputY = animator.GetFloat("LastInputY");
+                }
+
                 animator.runtimeAnimatorController = entry.animatorController;
+
+                animator.SetBool("isWalking",   isWalking);
+                animator.SetFloat("InputX",     inputX);
+                animator.SetFloat("InputY",     inputY);
+                animator.SetFloat("LastInputX", lastInputX);
+                animator.SetFloat("LastInputY", lastInputY);
                 return;
             }
         }
