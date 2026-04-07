@@ -7452,7 +7452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 147}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1310636095
@@ -10597,9 +10597,35 @@ MonoBehaviour:
   startSlides:
   - layout: 0
     image: {fileID: 0}
-    text: Test
-    rollingText: 0
-    highlights: []
+    text: 'It is a cold winter night, and the sky is pitch-black. A faint glow spills
+      from the coffee shop windows onto the empty city streets.
+
+
+      Inside, Dahlia
+      moves quietly. A barista by day, she wipes down the last of the tables and
+      sweeps the floor.'
+    rollingText: 1
+    highlights:
+    - word: Dahlia
+      color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
+    sounds: []
+  - layout: 0
+    image: {fileID: 0}
+    text: 'But as the hour grows late, the lights dim and so Dahlia fades with them,
+      slipping into the darkness and leaving the coffee shop behind.
+
+
+      The
+      distant hum of industry and the occasional hiss of steam can be heard howling
+      through the night.
+
+
+      In her place, emerges an experienced assassin. Tonight,
+      Hemlock roams the streets of old London, hunting for her prey.'
+    rollingText: 1
+    highlights:
+    - word: Hemlock
+      color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
     sounds: []
   slides:
   - layout: 0
