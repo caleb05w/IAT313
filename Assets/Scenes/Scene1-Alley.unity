@@ -10593,7 +10593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5751978dfa734eea81e24a0dec56305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
-  playOnStart: 0
+  playOnStart: 1
   startSlides:
   - layout: 0
     image: {fileID: 0}
