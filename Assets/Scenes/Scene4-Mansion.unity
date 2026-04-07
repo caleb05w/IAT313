@@ -1655,13 +1655,16 @@ MonoBehaviour:
 
 '
     rollingText: 1
+    music: {fileID: 0}
   displayImage: {fileID: 689370648}
   dialogueText: {fileID: 244216839}
   proceedLabel: {fileID: 1371214644}
+  musicSource: {fileID: 0}
   fadeInDuration: 0.5
   fadeOutDuration: 0.5
   advanceKey: 19
   charDelay: 0.04
+  flagOnComplete: 
   targetScene: Scene5-HarryApt
   targetSpawnPointName: Scene5-HarryApt-spawn
   spawnDirection: 1
@@ -4571,7 +4574,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - flag: event5:talkToHarryLong
+  - flag: event6:endScene
     onFlagSet:
       m_PersistentCalls:
         m_Calls:
@@ -6288,7 +6291,7 @@ MonoBehaviour:
         flagOnComplete: 
       - characterName: Hemlock
         text: "W- WHAT-?!\u201D"
-        flagOnComplete: event5:endScene
+        flagOnComplete: event6:endScene
     oneShot: 0
     hasFired: 0
   flagToSet: 
