@@ -1162,7 +1162,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274084906}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3016,7 +3016,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623053598}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -6824,8 +6824,8 @@ MonoBehaviour:
   advanceKey: 19
   charDelay: 0.04
   flagOnComplete: 
-  targetScene: 'Scene6-DahliaApt '
-  targetSpawnPointName: 'Scene6-DahliaApt '
+  targetScene: Scene6-DahliaApt
+  targetSpawnPointName: Scene6-DahliaApt
   spawnDirection: 4
 --- !u!225 &1491833287
 CanvasGroup:
@@ -8140,7 +8140,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687311111}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

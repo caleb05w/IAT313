@@ -1790,7 +1790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &427088600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1803,6 +1803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5751978dfa734eea81e24a0dec56305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
+  playOnStart: 0
+  startSlides: []
   slides:
   - layout: 0
     image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
