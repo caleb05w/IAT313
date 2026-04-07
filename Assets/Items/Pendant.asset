@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Pendant
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Pendant
-  icon: {fileID: -468918311067686906, guid: bc8d5c74ee93a49babfc7769b6c2c23c, type: 3}
+  icon: {fileID: 6203105728789254234, guid: de105eced86a161429c2142325206757, type: 3}
