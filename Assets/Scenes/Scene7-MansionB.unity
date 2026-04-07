@@ -2226,9 +2226,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
   slides:
-  - layout: 0
+  - layout: 1
     image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
-    text: This is a placeholder for rolling narrative text
+    text: The two crashes to the floor, locked in a desperate struggle.
+    rollingText: 1
+    highlights: []
+    sounds: []
+  - layout: 1
+    image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
+    text: "Wrestled down to the ground, Hemlock\u2019s mask slips free, clattering
+      against the ground. For a moment, the fight pauses almost as if time stops."
+    rollingText: 1
+    highlights:
+    - word: Hemlock
+      color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
+    sounds: []
+  - layout: 1
+    image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
+    text: "Wait... you\u2019re-"
+    rollingText: 1
+    highlights:
+    - word: "Wait... you\u2019re-"
+      color: {r: 0.6745098, g: 0.49019608, b: 0.79607844, a: 0}
+    sounds: []
+  - layout: 0
+    image: {fileID: 0}
+    text: Belladonna suddenly gets up as she retreats swiftly through the opened
+      window.
+    rollingText: 1
+    highlights:
+    - word: Belladonna
+      color: {r: 1, g: 0.32156864, b: 0.5137255, a: 0}
+    sounds: []
+  - layout: 0
+    image: {fileID: 0}
+    text: The End! This game is still a WIP!!!
     rollingText: 1
     highlights: []
     sounds: []
@@ -5094,7 +5126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1843658544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5214,6 +5246,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1919729181}
   - component: {fileID: 1919729182}
+  - component: {fileID: 1919729184}
+  - component: {fileID: 1919729183}
   m_Layer: 0
   m_Name: Mansion-2_0
   m_TagString: Untagged
@@ -5295,6 +5329,127 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!61 &1919729183
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919729180}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 2.0045018, y: -0.2715037}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.0625, y: 11.5625}
+    newSize: {x: 15.0625, y: 11.5625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 3.020362, y: 2.1196885}
+  m_EdgeRadius: 0
+--- !u!60 &1919729184
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919729180}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.0625, y: 11.5625}
+    newSize: {x: 15.0625, y: 11.5625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -4.2649317, y: 5.8713927}
+      - {x: 4.03125, y: 5.78125}
+      - {x: 7.568751, y: 2.1884298}
+      - {x: 7.5464425, y: -5.3054504}
+      - {x: -1.3956133, y: -5.256137}
+      - {x: -2.0194361, y: -5.758873}
+      - {x: -5.5242176, y: -5.737539}
+      - {x: -5.507191, y: -5.3862867}
+      - {x: -1.9805044, y: -5.2812424}
+      - {x: -2.0009923, y: -4.781807}
+      - {x: 6.9431653, y: -4.4784117}
+      - {x: 6.9225483, y: -0.6935991}
+      - {x: 4.019105, y: 2.216309}
+      - {x: 2.5991716, y: 2.2641652}
+      - {x: 0.54948664, y: 2.2434025}
+      - {x: 0.5145228, y: 1.7362189}
+      - {x: -0.11902654, y: 1.3642001}
+      - {x: -1.0694342, y: 1.8352861}
+      - {x: -4.0454435, y: 1.7827268}
+      - {x: -6.45666, y: -0.77737236}
+      - {x: -6.3957186, y: -2.7505393}
+      - {x: -5.9701624, y: -2.9893622}
+      - {x: -5.9606915, y: -4.798731}
+      - {x: -4.9639626, y: -4.80277}
+      - {x: -4.971539, y: -5.237128}
+      - {x: -7.4812813, y: -5.228331}
+      - {x: -7.4973793, y: -4.7343698}
+      - {x: -7.6165566, y: 2.275371}
+  m_UseDelaunayMesh: 1
 --- !u!1 &1920096744
 GameObject:
   m_ObjectHideFlags: 0
@@ -5872,7 +6027,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2136030085
