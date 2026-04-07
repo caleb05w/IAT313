@@ -8,8 +8,14 @@ public class ItemGiver : MonoBehaviour
     [SerializeField] private GameObject visualToHide;
     [SerializeField] private string flagToSet;
     [SerializeField] private bool oneShot = true;
+    [SerializeField] private AudioSource audioSource;
 
     private bool hasGiven = false;
+
+    void Awake()
+    {
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
+    }
 
     public void Give()
     {
@@ -25,6 +31,7 @@ public class ItemGiver : MonoBehaviour
         inventory.AddItem(item);
         inventory.SelectItem(item);
         FindFirstObjectByType<InventoryUI>()?.Open();
+        audioSource?.Play();
         hasGiven = true;
 
         if (visualToHide != null)

@@ -722,10 +722,15 @@ MonoBehaviour:
   dialogue:
     showDialogue: 1
     lines: []
+  flagDialogues: []
   flagToSet: event1:WASD
   flagOnComplete: 
   oneShot: 0
+  endDialogueOnExit: 1
   wander: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &70196991
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3179,12 +3184,19 @@ MonoBehaviour:
     lines:
     - characterName: Boss Man
       text: "You\u2019re late Hemlock."
+      flagOnComplete: 
     - characterName: Boss Man
       text: Come to my desk.
+      flagOnComplete: 
+  flagDialogues: []
   flagToSet: event1:meetBoss
   flagOnComplete: event2:talkToBoss
   oneShot: 0
+  endDialogueOnExit: 1
   wander: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &789294920
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4314,10 +4326,15 @@ MonoBehaviour:
   dialogue:
     showDialogue: 1
     lines: []
+  flagDialogues: []
   flagToSet: event2:introduceTarget
   flagOnComplete: event3:seeTarget
   oneShot: 0
+  endDialogueOnExit: 1
   wander: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &991639035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5549,10 +5566,15 @@ MonoBehaviour:
   dialogue:
     showDialogue: 1
     lines: []
+  flagDialogues: []
   flagToSet: 
   flagOnComplete: 
   oneShot: 0
+  endDialogueOnExit: 1
   wander: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1205335451
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5844,10 +5866,15 @@ MonoBehaviour:
   dialogue:
     showDialogue: 1
     lines: []
+  flagDialogues: []
   flagToSet: 
   flagOnComplete: 
   oneShot: 0
+  endDialogueOnExit: 1
   wander: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1241904177
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7254,36 +7281,54 @@ MonoBehaviour:
     lines:
     - characterName: Boss Man
       text: Took your sweet time with this one hmm?
+      flagOnComplete: 
     - characterName: Dahlia
       text: "I\u2019m sorry sir, I got caught up in-."
+      flagOnComplete: 
     - characterName: Boss Man
       text: Enough. Spare me the excuses.
+      flagOnComplete: 
     - characterName: Boss Man
       text: Did you bring proof of death?
+      flagOnComplete: 
     - characterName: Dahlia
       text: Y-yes... here you go
+      flagOnComplete: 
     - characterName: Boss Man
       text: "Hmm... very good\u201D"
+      flagOnComplete: 
     - characterName: Boss Man
       text: One less meddlesome investigator looking into our business.
+      flagOnComplete: 
     - characterName: Boss Man
       text: "You\u2019re going to assist your fellow cut-throat Harry in assailing
         a high profile target tomorrow."
+      flagOnComplete: 
     - characterName: Dahlia
       text: Umm, who exactly?
+      flagOnComplete: 
     - characterName: Boss Man
       text: "That doesn\u2019t concern you Hemlock"
+      flagOnComplete: 
     - characterName: Boss Man
       text: "Remember your place, you\u2019re nothing more than a violent tool. Don\u2019t
         ask such pointless questions"
+      flagOnComplete: 
     - characterName: Dahlia
       text: Apologies sir, I-
+      flagOnComplete: 
     - characterName: Boss Man
       text: "That will be all, you\u2019re dismissed."
+      flagOnComplete: 
+  flagDialogues: []
   flagToSet: 
-  flagOnComplete: event3:finishTalkToBoss
+  flagOnComplete: event4:finishTalkToBoss
   oneShot: 0
+  endDialogueOnExit: 1
   wander: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1600231008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9742,10 +9787,15 @@ MonoBehaviour:
   dialogue:
     showDialogue: 1
     lines: []
+  flagDialogues: []
   flagToSet: event1:WASD
   flagOnComplete: 
   oneShot: 0
+  endDialogueOnExit: 1
   wander: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &2032516229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9901,10 +9951,20 @@ MonoBehaviour:
   flagPans:
   - flag: event1:meetBoss
     target: {fileID: 1600231012}
+    flagOnComplete: 
+    dialogueLines:
+    - characterName: Boss Man
+      text: "You\u2019re late Hemlock"
+      flagOnComplete: 
+    - characterName: Boss Man
+      text: Come to my desk.
+      flagOnComplete: event2:talkToBoss
     oneShot: 1
     hasFired: 0
   - flag: event2:talkToBoss
     target: {fileID: 1709220422}
+    flagOnComplete: 
+    dialogueLines: []
     oneShot: 1
     hasFired: 0
   slideDuration: 2
@@ -10056,7 +10116,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - flag: event3:finishTalkToBoss
+  - flag: event4:finishTalkToBoss
     onFlagSet:
       m_PersistentCalls:
         m_Calls:

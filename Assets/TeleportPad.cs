@@ -47,12 +47,14 @@ public class TeleportPad : MonoBehaviour
     [SerializeField] private float holdDuration = 0.2f;
     [Tooltip("Seconds before this pad can trigger again. Prevents instant re-trigger on same-scene teleports.")]
     [SerializeField] private float cooldown = 1f;
+    private AudioSource audioSource;
 
     private bool onCooldown;
 
     void Awake()
     {
         GetComponent<Collider2D>().isTrigger = true;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -91,6 +93,7 @@ public class TeleportPad : MonoBehaviour
             ? rb.linearVelocity.normalized
             : other.GetComponent<playerMovement>()?.FacingDirection ?? Vector2.down;
 
+        audioSource?.Play();
         StartCoroutine(TeleportWithFade(other.gameObject, approachDir));
     }
 
