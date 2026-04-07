@@ -44,10 +44,10 @@ public class DialogueManager : MonoBehaviour
 // takes all the NPC lines and writes down the character's name and their lines
     public void StartDialogue(Dialogue dialogue)
     {
-        Debug.Log($"[DialogueManager] StartDialogue called. dialogue={dialogue != null}, lines={dialogue?.lines?.Length ?? -1}, showDialogue={dialogue?.showDialogue}, dialogueBox={dialogueBox != null}");
+        // Debug.Log($"[DialogueManager] StartDialogue called. dialogue={dialogue != null}, lines={dialogue?.lines?.Length ?? -1}, showDialogue={dialogue?.showDialogue}, dialogueBox={dialogueBox != null}");
         if (dialogue == null || dialogue.lines == null || dialogue.lines.Length == 0)
         {
-            Debug.LogWarning("[DialogueManager] Dialogue has no lines — did you forget to fill the Lines array?");
+            // Debug.LogWarning("[DialogueManager] Dialogue has no lines — did you forget to fill the Lines array?");
             return;
         }
 
@@ -58,7 +58,7 @@ public class DialogueManager : MonoBehaviour
 
         dialogueBox.SetActive(dialogue.showDialogue);
         ShowLine(lines[currentIndex]);
-        Debug.Log($"[DialogueManager] Showing line 0: name={lines[0].characterName}, text={lines[0].text}");
+        // Debug.Log($"[DialogueManager] Showing line 0: name={lines[0].characterName}, text={lines[0].text}");
         GameManager.Instance?.SetState(GameManager.GameState.Dialogue);
     }
 
@@ -92,7 +92,7 @@ public class DialogueManager : MonoBehaviour
 // if you walk away or when dialogue is finished, changes isOpen to false and the box disappears
     public void EndDialogue()
     {
-        Debug.Log($"[DialogueManager] EndDialogue called. isOpen was={isOpen}\n{System.Environment.StackTrace}");
+        // Debug.Log($"[DialogueManager] EndDialogue called. isOpen was={isOpen}\n{System.Environment.StackTrace}");
         isOpen = false;
         dialogueBox.SetActive(false);
         GameManager.Instance?.SetState(GameManager.GameState.Explore);

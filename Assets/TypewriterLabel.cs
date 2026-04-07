@@ -20,7 +20,7 @@ public class TypewriterLabel : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log($"[TypewriterLabel] OnEnable. HasFlag={GameManager.Instance?.HasFlag(triggerFlag)}");
+        // Debug.Log($"[TypewriterLabel] OnEnable. HasFlag={GameManager.Instance?.HasFlag(triggerFlag)}");
         if (GameManager.Instance == null) return;
 
         if (GameManager.Instance.HasFlag(triggerFlag))
@@ -42,7 +42,7 @@ public class TypewriterLabel : MonoBehaviour
 
     public void Trigger()
     {
-        Debug.Log($"[TypewriterLabel] Trigger called. triggered={triggered}, flag={triggerFlag}");
+        // Debug.Log($"[TypewriterLabel] Trigger called. triggered={triggered}, flag={triggerFlag}");
         if (triggered) return;
         triggered = true;
 
@@ -55,13 +55,13 @@ public class TypewriterLabel : MonoBehaviour
     private IEnumerator TypeOut()
     {
         yield return null;
-        Debug.Log("[TypewriterLabel] TypeOut running, writing: " + message);
+        // Debug.Log("[TypewriterLabel] TypeOut running, writing: " + message);
         string current = "";
         foreach (char c in message)
         {
             current += c;
             label.ShowMessage(current);
-            Debug.Log("[TypewriterLabel] text: " + current);
+            // Debug.Log("[TypewriterLabel] text: " + current);
             yield return new WaitForSeconds(charDelay);
         }
     }

@@ -39,12 +39,12 @@ public class ItemGiver : MonoBehaviour
 
         if (!string.IsNullOrEmpty(flagToSet))
         {
-            Debug.Log($"[ItemGiver] Setting flag: '{flagToSet}', GameManager: {(GameManager.Instance != null ? "exists" : "NULL")}");
+            // Debug.Log($"[ItemGiver] Setting flag: '{flagToSet}', GameManager: {(GameManager.Instance != null ? "exists" : "NULL")}");
             GameManager.Instance?.SetFlag(flagToSet);
         }
         else
         {
-            Debug.Log("[ItemGiver] No flag to set — flagToSet is empty.");
+            // Debug.Log("[ItemGiver] No flag to set — flagToSet is empty.");
         }
     }
 }

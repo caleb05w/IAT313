@@ -93,7 +93,7 @@ public class TeleportPad : MonoBehaviour
             ? rb.linearVelocity.normalized
             : other.GetComponent<playerMovement>()?.FacingDirection ?? Vector2.down;
 
-        audioSource?.Play();
+        if (audioSource) audioSource.Play();
         StartCoroutine(TeleportWithFade(other.gameObject, approachDir));
     }
 
@@ -105,7 +105,7 @@ public class TeleportPad : MonoBehaviour
 
         if (!hasDestination)
         {
-            Debug.LogWarning($"TeleportPad '{name}': no Destination or Target Scene set.", this);
+            // Debug.LogWarning($"TeleportPad '{name}': no Destination or Target Scene set.", this);
             onCooldown = false;
             yield break;
         }

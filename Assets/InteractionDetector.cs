@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 // Handles trigger-based interactions (e.g. NPCs, pickups, doors, zones).
 // Attach to any GameObject. Add any Collider2D shape you want — this script will use it.
@@ -11,14 +12,17 @@ public class InteractionDetector : MonoBehaviour
     [SerializeField] private bool useBoxCollider = false;
     // If true, touching this object triggers Combat state instead of Explore
     [SerializeField] private bool isHostile = false;
+    [Tooltip("If true, events fire when the player presses E in range instead of on enter.")]
+    [SerializeField] private bool fireOnInteract = false;
     [SerializeField] private string interactLabel;
     [SerializeField] private string flagOnEnter;
     [SerializeField] private string flagOnExit;
     [SerializeField] private bool oneShot = false;
 
     private bool hasFired = false;
+    private bool playerInRange = false;
 
-    // Wire any public method here — called when the player enters the zone
+    // Wire any public method here — called when the player enters the zone (or presses E if fireOnInteract)
     [SerializeField] private UnityEvent onPlayerEnter;
     // Called when the player exits the zone
     [SerializeField] private UnityEvent onPlayerExit;
@@ -26,6 +30,7 @@ public class InteractionDetector : MonoBehaviour
     [SerializeField] private UnityEngine.Events.UnityEvent<Collider2D> onPlayerEnterWithCollider;
 
     private LabelController label;
+    private Collider2D cachedPlayerCollider;
 
     void Awake()
     {
@@ -35,7 +40,6 @@ public class InteractionDetector : MonoBehaviour
         {
             var box = GetComponent<BoxCollider2D>();
             if (box != null) box.isTrigger = true;
-            else Debug.LogWarning("InteractionDetector: useBoxCollider is true but no BoxCollider2D found on " + gameObject.name);
         }
         else
         {
@@ -46,27 +50,41 @@ public class InteractionDetector : MonoBehaviour
         }
     }
 
-    // Fires once when another collider enters the interaction zone
+    void Update()
+    {
+        if (!fireOnInteract || !playerInRange) return;
+        if (oneShot && hasFired) return;
+        if (GameManager.Instance != null && !GameManager.Instance.IsState(GameManager.GameState.Explore)) return;
+        if (!Keyboard.current.eKey.wasPressedThisFrame) return;
+
+        Fire(cachedPlayerCollider);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        if (oneShot && hasFired) return;
+
+        playerInRange = true;
+        cachedPlayerCollider = other;
 
         if (label != null) label.ShowMessage(string.IsNullOrEmpty(interactLabel) ? "Press E to interact" : interactLabel);
+
+        if (fireOnInteract) return;
+
+        if (oneShot && hasFired) return;
 
         if (isHostile)
             GameManager.Instance.SetState(GameManager.GameState.Combat);
 
-        if (!string.IsNullOrEmpty(flagOnEnter)) GameManager.Instance?.SetFlag(flagOnEnter);
-        hasFired = true;
-        onPlayerEnter?.Invoke();
-        onPlayerEnterWithCollider?.Invoke(other);
+        Fire(other);
     }
 
-    // Fires once when another collider leaves the interaction zone
     void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+
+        playerInRange = false;
+        cachedPlayerCollider = null;
 
         if (label != null) label.FadeOut();
 
@@ -78,5 +96,13 @@ public class InteractionDetector : MonoBehaviour
             if (!string.IsNullOrEmpty(flagOnExit)) GameManager.Instance.SetFlag(flagOnExit);
             onPlayerExit?.Invoke();
         }
+    }
+
+    private void Fire(Collider2D other)
+    {
+        hasFired = true;
+        if (!string.IsNullOrEmpty(flagOnEnter)) GameManager.Instance?.SetFlag(flagOnEnter);
+        onPlayerEnter?.Invoke();
+        if (other != null) onPlayerEnterWithCollider?.Invoke(other);
     }
 }

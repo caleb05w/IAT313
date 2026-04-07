@@ -62,7 +62,7 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        Debug.Log($"[DialogueTrigger:{name}] TriggerDialogue called. IsOpen={DialogueManager.Instance?.IsOpen()}");
+        // Debug.Log($"[DialogueTrigger:{name}] TriggerDialogue called. IsOpen={DialogueManager.Instance?.IsOpen()}");
         if (DialogueManager.Instance == null || DialogueManager.Instance.IsOpen()) return;
         StartDialogueWithFlag();
         wander?.SetTalking(true);
@@ -72,10 +72,10 @@ public class DialogueTrigger : MonoBehaviour
     {
         var (resolved, entry) = ResolveDialogue();
         bool isFlagOverride = resolved != dialogue;
-        Debug.Log($"[DialogueTrigger:{name}] StartDialogueWithFlag. resolved={resolved?.GetType().Name ?? "NULL"}, isFlagOverride={isFlagOverride}, oneShot={oneShot}, hasFired={hasFired}, entry.oneShot={entry?.oneShot}, entry.hasFired={entry?.hasFired}");
-        if (oneShot && hasFired && !isFlagOverride) { Debug.Log($"[DialogueTrigger:{name}] Blocked by oneShot+hasFired"); return; }
-        if (entry != null && entry.oneShot && entry.hasFired) { Debug.Log($"[DialogueTrigger:{name}] Blocked by entry.oneShot+hasFired"); return; }
-        if (resolved == null) { Debug.LogWarning($"[DialogueTrigger:{name}] resolved dialogue is null!"); return; }
+        // Debug.Log($"[DialogueTrigger:{name}] StartDialogueWithFlag. resolved={resolved?.GetType().Name ?? "NULL"}, isFlagOverride={isFlagOverride}, oneShot={oneShot}, hasFired={hasFired}, entry.oneShot={entry?.oneShot}, entry.hasFired={entry?.hasFired}");
+        if (oneShot && hasFired && !isFlagOverride) { /* Debug.Log($"[DialogueTrigger:{name}] Blocked by oneShot+hasFired"); */ return; }
+        if (entry != null && entry.oneShot && entry.hasFired) { /* Debug.Log($"[DialogueTrigger:{name}] Blocked by entry.oneShot+hasFired"); */ return; }
+        if (resolved == null) { /* Debug.LogWarning($"[DialogueTrigger:{name}] resolved dialogue is null!"); */ return; }
         hasFired = true;
         if (entry != null) entry.hasFired = true;
         DialogueManager.Instance.StartDialogue(resolved);

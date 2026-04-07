@@ -11,6 +11,8 @@ public class CutsceneSlide
     public Sprite image;
     [TextArea] public string text;
     public bool rollingText;
+    [Tooltip("Music to play when this slide is shown. Leave empty to keep current music.")]
+    public AudioClip music;
 }
 
 // Attach to a Canvas. Assign slides in the Inspector.
@@ -23,6 +25,9 @@ public class CutscenePlayer : MonoBehaviour
     [SerializeField] private Image displayImage;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI proceedLabel;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource musicSource;
 
     [Header("Fade")]
     [SerializeField] private float fadeInDuration  = 0.5f;
@@ -85,6 +90,13 @@ public class CutscenePlayer : MonoBehaviour
     private void ApplySlide(int index, bool instant = false)
     {
         if (displayImage != null) displayImage.sprite = slides[index].image;
+
+        var clip = slides[index].music;
+        if (musicSource && clip != null && musicSource.clip != clip)
+        {
+            musicSource.clip = clip;
+            musicSource.Play();
+        }
 
         if (dialogueText != null)
         {

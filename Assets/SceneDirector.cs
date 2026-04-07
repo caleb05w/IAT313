@@ -74,11 +74,11 @@ public class SceneDirector : MonoBehaviour
 
     private void OnFlagSet(string flag)
     {
-        Debug.Log($"[SceneDirector] Flag set: '{flag}'");
+        // Debug.Log($"[SceneDirector] Flag set: '{flag}'");
         foreach (var entry in flagResponses)
         {
             if (entry.flag != flag) continue;
-            Debug.Log($"[SceneDirector] Matched flag '{flag}' — invoking response");
+            // Debug.Log($"[SceneDirector] Matched flag '{flag}' — invoking response");
             entry.onFlagSet.Invoke();
         }
     }

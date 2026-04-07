@@ -264,6 +264,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -467,6 +468,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: use WASD to move
   flagOnEnter: event1:WASD
   flagOnExit: 
@@ -637,6 +639,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: 
   flagOnExit: 
@@ -3867,6 +3870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemData: {fileID: 11400000, guid: 70c2a4b937a1c4a138001cd186cb74c4, type: 2}
   pickupSound: {fileID: 0}
+  flagToSet: 
 --- !u!114 &762558720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3882,6 +3886,7 @@ MonoBehaviour:
   radius: 1
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -4092,7 +4097,6 @@ MonoBehaviour:
   fadeDuration: 0.25
   holdDuration: 0.25
   cooldown: 1
-  teleportSound: {fileID: 0}
 --- !u!212 &780197475
 SpriteRenderer:
   serializedVersion: 2
@@ -6419,6 +6423,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: event2:introduceTarget
   flagOnExit: 
@@ -7010,6 +7015,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -7203,6 +7209,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -7348,6 +7355,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: event4:killTarget
   flagOnExit: 
@@ -7515,6 +7523,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 1
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: event4:azaleaEnter
   flagOnExit: 
@@ -8000,6 +8009,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 1
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -9549,6 +9559,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: 
   flagOnExit: 
@@ -9972,6 +9983,7 @@ MonoBehaviour:
   radius: 1
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -10543,6 +10555,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: 
   flagOnExit: 
@@ -10844,6 +10857,7 @@ MonoBehaviour:
   radius: 1
   useBoxCollider: 0
   isHostile: 1
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -11226,8 +11240,8 @@ MonoBehaviour:
   fadeOutDuration: 0.5
   advanceKey: 19
   charDelay: 0.04
-  targetScene: Scene3-Cafe
-  targetSpawnPointName: Scene3-Spawn
+  targetScene: Scene4-Mansion
+  targetSpawnPointName: Scene4-Mansion-Spawn
   spawnDirection: 2
 --- !u!225 &1926944302
 CanvasGroup:

@@ -53,7 +53,7 @@ public class Inventory : MonoBehaviour
         if (items.Contains(item)) return false;
         items.Add(item);
         string itemList = string.Join(", ", items.ConvertAll(i => i.itemName));
-        Debug.Log($"Picked up: {item.itemName} | Inventory: [{itemList}]");
+        // Debug.Log($"Picked up: {item.itemName} | Inventory: [{itemList}]");
         OnChanged?.Invoke();
         return true;
     }

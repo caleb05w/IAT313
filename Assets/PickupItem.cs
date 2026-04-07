@@ -7,6 +7,7 @@ public class PickupItem : MonoBehaviour
 {
     [SerializeField] private ItemData itemData;
     [SerializeField] private AudioSource pickupSound;
+    [SerializeField] private string flagToSet;
 
     private bool playerInRange = false;
     private Inventory inventory;
@@ -44,6 +45,8 @@ public class PickupItem : MonoBehaviour
             var source = pickupSound != null ? pickupSound : GetComponent<AudioSource>();
             if (source != null && source.clip != null)
                 AudioSource.PlayClipAtPoint(source.clip, transform.position, source.volume);
+            if (!string.IsNullOrEmpty(flagToSet))
+                GameManager.Instance?.SetFlag(flagToSet);
             Destroy(gameObject);
         }
     }
