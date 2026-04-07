@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,14 @@ public class WordHighlight
 }
 
 [System.Serializable]
+public class SlideSound
+{
+    public AudioClip clip;
+    [Range(0f, 30f), Tooltip("Seconds after the slide appears before this sound plays.")]
+    public float offset = 0f;
+}
+
+[System.Serializable]
 public class CutsceneSlide
 {
     public SlideLayout layout;
@@ -23,8 +32,8 @@ public class CutsceneSlide
     public bool rollingText;
     [Tooltip("Words to highlight, each with its own colour.")]
     public WordHighlight[] highlights;
-    [Tooltip("Music to play when this slide is shown. Leave empty to keep current music.")]
-    public AudioClip music;
+    [Tooltip("Sounds to play on this slide, each with its own time offset.")]
+    public SlideSound[] sounds;
 }
 
 // Attach to a Canvas. Assign slides in the Inspector.
@@ -47,7 +56,7 @@ public class CutscenePlayer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textWithImageProceed;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
 
     [Header("Fade")]
     [SerializeField] private float fadeInDuration  = 0.5f;
@@ -72,6 +81,7 @@ public class CutscenePlayer : MonoBehaviour
     private bool isTyping     = false;
     private Coroutine typeCoroutine;
     private SlideLayout activeLayout;
+    private List<Coroutine> soundCoroutines = new List<Coroutine>();
 
     // Returns the dialogue/proceed components for whichever layout is currently active
     private TextMeshProUGUI DialogueText => activeLayout == SlideLayout.TextOnly ? textOnlyDialogue     : textWithImageDialogue;
@@ -132,12 +142,16 @@ public class CutscenePlayer : MonoBehaviour
 
         if (displayImage != null) displayImage.sprite = slide.image;
 
-        var clip = slide.music;
-        if (musicSource && clip != null && musicSource.clip != clip)
-        {
-            musicSource.clip = clip;
-            musicSource.Play();
-        }
+        // cancel any pending sounds from the previous slide
+        foreach (var c in soundCoroutines)
+            if (c != null) StopCoroutine(c);
+        soundCoroutines.Clear();
+
+        // schedule each sound with its offset
+        if (sfxSource != null && slide.sounds != null)
+            foreach (var s in slide.sounds)
+                if (s.clip != null)
+                    soundCoroutines.Add(StartCoroutine(PlaySoundDelayed(s.clip, s.offset)));
 
         if (DialogueText != null)
         {
@@ -170,6 +184,12 @@ public class CutscenePlayer : MonoBehaviour
             if (!string.IsNullOrEmpty(h.word))
                 result = result.Replace(h.word, $"<color=#{ColorUtility.ToHtmlStringRGB(h.color)}>{h.word}</color>");
         return result;
+    }
+
+    private IEnumerator PlaySoundDelayed(AudioClip clip, float delay)
+    {
+        if (delay > 0f) yield return new WaitForSeconds(delay);
+        sfxSource.PlayOneShot(clip);
     }
 
     private IEnumerator TypeText(string text)
