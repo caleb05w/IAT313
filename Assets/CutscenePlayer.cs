@@ -37,6 +37,9 @@ public class CutscenePlayer : MonoBehaviour
     [SerializeField] private Key advanceKey = Key.E;
     [SerializeField] private float charDelay = 0.04f;
 
+    [Header("On Complete")]
+    [SerializeField] private string flagOnComplete;
+
     [Header("Teleport After (optional)")]
     [SerializeField] private string targetScene;
     [SerializeField] private string targetSpawnPointName;
@@ -162,7 +165,7 @@ public class CutscenePlayer : MonoBehaviour
         isAnimating = true;
         isShowing   = false;
 
-        // fade to black
+        // fade content to black
         yield return FadeImage(1f, 0f, fadeOutDuration);
 
         if (!string.IsNullOrEmpty(targetScene))
@@ -175,12 +178,17 @@ public class CutscenePlayer : MonoBehaviour
                 GameManager.Instance.pendingTeleportSpawn   = true;
                 GameManager.Instance.SetState(GameManager.GameState.Transition);
             }
+            if (!string.IsNullOrEmpty(flagOnComplete))
+                GameManager.Instance?.SetFlag(flagOnComplete);
             SceneManager.LoadScene(targetScene);
         }
         else
         {
+            // fade canvas back out to reveal the scene
             yield return Fade(1f, 0f, fadeOutDuration);
             canvasGroup.blocksRaycasts = false;
+            if (!string.IsNullOrEmpty(flagOnComplete))
+                GameManager.Instance?.SetFlag(flagOnComplete);
             GameManager.Instance?.SetState(GameManager.GameState.Explore);
         }
 
