@@ -824,6 +824,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: use WASD to move
   flagOnEnter: event1:WASD
   flagOnExit: 
@@ -1224,6 +1225,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: event4:killTarget
   flagOnExit: 
@@ -1461,6 +1463,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -3353,6 +3356,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: event4:killTarget
   flagOnExit: 
@@ -3526,6 +3530,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 1
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: event2:introduceTarget
   flagOnExit: 
@@ -3590,13 +3595,16 @@ MonoBehaviour:
 
 '
     rollingText: 1
+    music: {fileID: 0}
   displayImage: {fileID: 2113214259}
   dialogueText: {fileID: 978656379}
   proceedLabel: {fileID: 35669425}
+  musicSource: {fileID: 0}
   fadeInDuration: 0.5
   fadeOutDuration: 0.5
   advanceKey: 19
   charDelay: 0.04
+  flagOnComplete: 
   targetScene: Scene3-Cafe
   targetSpawnPointName: Scene3-Spawn
   spawnDirection: 2
@@ -4742,6 +4750,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: event2:introduceTarget
   flagOnExit: 
@@ -5384,6 +5393,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -5804,6 +5814,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -6098,6 +6109,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: 
   flagOnExit: 
@@ -6560,6 +6572,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: '!'
   flagOnEnter: 
   flagOnExit: 
@@ -8028,6 +8041,7 @@ MonoBehaviour:
   radius: 1
   useBoxCollider: 0
   isHostile: 1
+  fireOnInteract: 0
   interactLabel: 
   flagOnEnter: 
   flagOnExit: 
@@ -10830,6 +10844,7 @@ MonoBehaviour:
   radius: 0.5
   useBoxCollider: 0
   isHostile: 0
+  fireOnInteract: 0
   interactLabel: use WASD to move
   flagOnEnter: event1:WASD
   flagOnExit: 
@@ -10895,7 +10910,7 @@ MonoBehaviour:
     flagOnComplete: 
     dialogueLines:
     - characterName: Boss Man
-      text: "You\u2019re late Hemlock"
+      text: "You\u2019re late Hemlock."
       flagOnComplete: 
     - characterName: Boss Man
       text: Come to my desk.
@@ -10920,7 +10935,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 6434441eea4c94aa49cacad42c2595d2, type: 3}
+  m_Resource: {fileID: 8300000, guid: 4fd63b07575ea2d4f9258762228eb659, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
