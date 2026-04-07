@@ -2729,6 +2729,18 @@ MonoBehaviour:
     - word: Hemlock
       color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
     sounds: []
+  - layout: 0
+    image: {fileID: 0}
+    text: "Dahlia returns home, dropping her belongings without a second thought 
+      The apartment is is cramped and silent. Curtains drawn tight as the sound of
+      heavy rain pounds against the windows.\n\nSomething is off, she notices the
+      dossier sitting on the table, waiting.\n\nDahlia\u2019s gaze sharpens, she
+      approaches the files with caution"
+    rollingText: 1
+    highlights:
+    - word: Dahlia
+      color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
+    sounds: []
   textOnlyLayout: {fileID: 1163753441}
   textOnlyDialogue: {fileID: 1737557306}
   textOnlyProceed: {fileID: 430502526}
