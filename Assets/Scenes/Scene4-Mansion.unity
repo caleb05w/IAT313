@@ -1382,7 +1382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 0.75, y: 0.75}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 200, y: -96}
   m_SizeDelta: {x: -200, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &365490824
@@ -1616,11 +1616,18 @@ MonoBehaviour:
   slides:
   - layout: 0
     image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
-    text: 'Rolling Narrative Text
+    text: 'A day have passed since Dahlia was able to contact Harry. She visits his
+      place to investigate.
 
-'
+
+      The front door hangs open, a clear sign of trouble.
+      She steps inside with caution, looking for Harry.'
     rollingText: 1
-    highlights: []
+    highlights:
+    - word: Dahlia
+      color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
+    - word: Harry
+      color: {r: 0.9607843, g: 0.9019608, b: 0.2509804, a: 0}
     sounds: []
   textOnlyLayout: {fileID: 1516558556}
   textOnlyDialogue: {fileID: 281680183}
@@ -4109,7 +4116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1058569320
@@ -6911,7 +6918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1526993400
