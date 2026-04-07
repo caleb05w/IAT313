@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &32741696
@@ -241,7 +241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &235494505
 RectTransform:
   m_ObjectHideFlags: 0
@@ -445,6 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 281829838}
   - component: {fileID: 281829839}
+  - component: {fileID: 281829840}
   m_Layer: 0
   m_Name: DhaliasApartmentBedroom
   m_TagString: Untagged
@@ -526,6 +527,81 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!60 &281829840
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281829837}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7, y: 10}
+    newSize: {x: 7, y: 10}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -2.8339574, y: -2.0137155}
+      - {x: -2.4865978, y: -1.9850123}
+      - {x: -2.507279, y: -4.026329}
+      - {x: -0.12880373, y: -3.9837344}
+      - {x: -0.09341827, y: -3.417759}
+      - {x: 2.4537096, y: -3.4304447}
+      - {x: 2.4505663, y: -1.5808187}
+      - {x: 1.688265, y: -1.617937}
+      - {x: 1.6233767, y: -0.48025095}
+      - {x: 1.8741031, y: 0.09049657}
+      - {x: 2.188309, y: 0.108529985}
+      - {x: 2.4569733, y: 0.11634505}
+      - {x: 2.4721453, y: 1.4203324}
+      - {x: 0.5624385, y: 1.3817873}
+      - {x: 0.49683177, y: 0.13297701}
+      - {x: -0.5474635, y: 0.01505281}
+      - {x: -0.51483274, y: -0.23003344}
+      - {x: -1.1340889, y: -0.23196322}
+      - {x: -1.122016, y: 0.016190425}
+      - {x: -2.5152147, y: 0.029988885}
+      - {x: -2.5417619, y: -0.9814503}
+      - {x: -2.703042, y: -0.9925345}
+      - {x: -2.6926448, y: -1.9492644}
+      - {x: -2.8454747, y: -1.9823136}
+      - {x: -2.867917, y: 4.3364525}
+      - {x: 2.855688, y: 4.3899145}
+      - {x: 2.8770611, y: -4.2820005}
+      - {x: -2.8636782, y: -4.257993}
+  m_UseDelaunayMesh: 1
 --- !u!1 &299996668
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,7 +2674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1063238907
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2636,10 +2712,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
   slides:
   - layout: 0
-    image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
-    text: This is a placeholder for rolling narrative text
+    image: {fileID: 0}
+    text: 'Dahlia exhales, the weight of the mission sets in.
+
+
+      Fatigue pulls
+      her into bed as the distant rain continues to fall.
+
+
+      When the night
+      deepens, Hemlock sets out on her task.'
     rollingText: 1
-    highlights: []
+    highlights:
+    - word: Dahlia
+      color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
+    - word: Hemlock
+      color: {r: 0.4627451, g: 0.6117647, b: 0.33333334, a: 0}
     sounds: []
   textOnlyLayout: {fileID: 1163753441}
   textOnlyDialogue: {fileID: 1737557306}
@@ -2654,8 +2742,8 @@ MonoBehaviour:
   advanceKey: 19
   charDelay: 0.04
   flagOnComplete: 
-  targetScene: 'Scene7-MansionB '
-  targetSpawnPointName: 'Scene7-MansionB '
+  targetScene: Scene7-MansionB
+  targetSpawnPointName: Scene7-MansionB
   spawnDirection: 4
 --- !u!225 &1063238909
 CanvasGroup:
