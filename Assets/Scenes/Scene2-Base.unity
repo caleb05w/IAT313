@@ -3338,15 +3338,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
   slides:
   - image: {fileID: 260864091598996962, guid: 0c282b923848a40329060b7c552aa64e, type: 3}
-    text: 'Test hello helloo '
+    text: 'Rolling Narrative Text
+
+'
+    rollingText: 1
   displayImage: {fileID: 2113214259}
   dialogueText: {fileID: 978656379}
   proceedLabel: {fileID: 35669425}
   fadeInDuration: 0.5
   fadeOutDuration: 0.5
   advanceKey: 19
-  targetScene: 
-  targetSpawnPointName: 
+  charDelay: 0.04
+  targetScene: Scene3-Cafe
+  targetSpawnPointName: Scene3-Spawn
   spawnDirection: 2
 --- !u!225 &793176859
 CanvasGroup:

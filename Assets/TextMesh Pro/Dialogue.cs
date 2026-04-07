@@ -5,6 +5,8 @@ public class DialogueLine
 {
     public string characterName;
     [TextArea] public string text;
+    [Tooltip("Flag to set when the player advances past this line.")]
+    public string flagOnComplete;
 }
 
 [System.Serializable]

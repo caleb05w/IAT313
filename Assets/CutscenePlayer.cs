@@ -10,6 +10,7 @@ public class CutsceneSlide
 {
     public Sprite image;
     [TextArea] public string text;
+    public bool rollingText;
 }
 
 // Attach to a Canvas. Assign slides in the Inspector.
@@ -29,6 +30,7 @@ public class CutscenePlayer : MonoBehaviour
 
     [Header("Advance")]
     [SerializeField] private Key advanceKey = Key.E;
+    [SerializeField] private float charDelay = 0.04f;
 
     [Header("Teleport After (optional)")]
     [SerializeField] private string targetScene;
@@ -37,8 +39,10 @@ public class CutscenePlayer : MonoBehaviour
 
     private CanvasGroup canvasGroup;
     private int currentSlide = 0;
-    private bool isShowing   = false;
-    private bool isAnimating = false;
+    private bool isShowing    = false;
+    private bool isAnimating  = false;
+    private bool isTyping     = false;
+    private Coroutine typeCoroutine;
 
     void Awake()
     {
@@ -55,6 +59,14 @@ public class CutscenePlayer : MonoBehaviour
 
         if (Keyboard.current[advanceKey].wasPressedThisFrame)
         {
+            if (isTyping)
+            {
+                // skip to full text immediately, then fall through to advance
+                if (typeCoroutine != null) StopCoroutine(typeCoroutine);
+                isTyping = false;
+                if (dialogueText != null) dialogueText.text = slides[currentSlide].text;
+            }
+
             if (currentSlide < slides.Length - 1)
                 StartCoroutine(NextSlide());
             else
@@ -72,14 +84,40 @@ public class CutscenePlayer : MonoBehaviour
 
     private void ApplySlide(int index, bool instant = false)
     {
-        if (displayImage != null)  displayImage.sprite = slides[index].image;
-        if (dialogueText != null)  dialogueText.text   = slides[index].text;
+        if (displayImage != null) displayImage.sprite = slides[index].image;
+
+        if (dialogueText != null)
+        {
+            if (slides[index].rollingText)
+            {
+                dialogueText.text = "";
+                if (typeCoroutine != null) StopCoroutine(typeCoroutine);
+                typeCoroutine = StartCoroutine(TypeText(slides[index].text));
+            }
+            else
+            {
+                dialogueText.text = slides[index].text;
+            }
+        }
+
         if (instant)
         {
             if (displayImage != null) displayImage.color = new Color(1f, 1f, 1f, 0f);
             if (dialogueText != null) dialogueText.color = new Color(1f, 1f, 1f, 0f);
             if (proceedLabel != null) proceedLabel.color = new Color(1f, 1f, 1f, 0f);
         }
+    }
+
+    private IEnumerator TypeText(string text)
+    {
+        isTyping = true;
+        for (int i = 0; i <= text.Length; i++)
+        {
+            if (!isTyping) yield break; // skipped externally
+            if (dialogueText != null) dialogueText.text = text.Substring(0, i);
+            yield return new WaitForSeconds(charDelay);
+        }
+        isTyping = false;
     }
 
     private IEnumerator FadeIn()

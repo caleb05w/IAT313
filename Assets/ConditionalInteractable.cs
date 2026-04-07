@@ -46,6 +46,7 @@ public class ConditionalInteractable : MonoBehaviour
     // Wire these to InteractionDetector's onPlayerEnter / onPlayerExit UnityEvents
     public void OnPlayerEnter(Collider2D col)
     {
+        Debug.Log($"[ConditionalInteractable] OnPlayerEnter called on {gameObject.name}");
         playerInventory = col.GetComponent<Inventory>();
         playerInRange = true;
     }
@@ -67,6 +68,7 @@ public class ConditionalInteractable : MonoBehaviour
 
     private void TryInteract()
     {
+        Debug.Log($"[ConditionalInteractable] TryInteract called. playerInRange={playerInRange}, hasSucceeded={hasSucceeded}");
         // Already succeeded — just replay the success dialogue, skip everything else
         if (hasSucceeded)
         {

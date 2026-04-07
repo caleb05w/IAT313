@@ -10,9 +10,20 @@ public class CameraPan : MonoBehaviour
     {
         public string flag;
         public Transform target;
-        [Tooltip("If true, this pan only triggers once and is ignored on subsequent flag sets.")]
+        [Tooltip("Flag to set after this pan (and optional dialogue) fully completes.")]
+        public string flagOnComplete;
+        [Tooltip("Optional dialogue to show after the pan. State stays locked until the player dismisses it.")]
+        public DialogueLine[] dialogueLines;
+        [Tooltip("If true, this pan only triggers once.")]
         public bool oneShot;
         [HideInInspector] public bool hasFired;
+    }
+
+    private struct PanRequest
+    {
+        public Transform target;
+        public string flagOnComplete;
+        public DialogueLine[] dialogueLines;
     }
 
     [SerializeField] private List<FlagPan> flagPans = new List<FlagPan>();
@@ -22,7 +33,7 @@ public class CameraPan : MonoBehaviour
     private Transform playerTransform;
     private Transform currentTarget;
     private Coroutine activeSlide;
-    private Queue<Transform> panQueue = new Queue<Transform>();
+    private Queue<PanRequest> panQueue = new Queue<PanRequest>();
 
     void Start()
     {
@@ -54,7 +65,7 @@ public class CameraPan : MonoBehaviour
             if (entry.flag != flag) continue;
             if (entry.oneShot && entry.hasFired) continue;
             entry.hasFired = true;
-            EnqueuePan(entry.target);
+            EnqueuePan(entry.target, entry.flagOnComplete, entry.dialogueLines);
         }
     }
 
@@ -63,28 +74,31 @@ public class CameraPan : MonoBehaviour
         EnqueuePan(playerTransform);
     }
 
-    private void EnqueuePan(Transform dest)
+    private void EnqueuePan(Transform dest, string flagOnComplete = "", DialogueLine[] dialogueLines = null)
     {
         if (vcam == null || dest == null) return;
 
+        var request = new PanRequest { target = dest, flagOnComplete = flagOnComplete, dialogueLines = dialogueLines };
+
         if (activeSlide != null)
-        {
-            panQueue.Enqueue(dest);
-        }
+            panQueue.Enqueue(request);
         else
-        {
-            activeSlide = StartCoroutine(SlideCoroutine(dest));
-        }
+            activeSlide = StartCoroutine(SlideCoroutine(request));
     }
 
-    private IEnumerator SlideCoroutine(Transform dest)
+    private IEnumerator SlideCoroutine(PanRequest request)
     {
-        if (dest != currentTarget)
-        {
+        bool didPan = request.target != currentTarget;
+        bool hasDialogue = request.dialogueLines != null && request.dialogueLines.Length > 0;
+        bool lockState = didPan || hasDialogue;
+
+        if (lockState)
             GameManager.Instance?.SetState(GameManager.GameState.Dialogue);
 
+        if (didPan)
+        {
             var proxy = new GameObject("CameraProxy").transform;
-            proxy.position = currentTarget != null ? currentTarget.position : dest.position;
+            proxy.position = currentTarget != null ? currentTarget.position : request.target.position;
             vcam.Follow = proxy;
 
             Vector3 startPos = proxy.position;
@@ -93,24 +107,33 @@ public class CameraPan : MonoBehaviour
             while (elapsed < slideDuration)
             {
                 elapsed += Time.deltaTime;
-                proxy.position = Vector3.Lerp(startPos, dest.position, Mathf.SmoothStep(0f, 1f, elapsed / slideDuration));
+                proxy.position = Vector3.Lerp(startPos, request.target.position, Mathf.SmoothStep(0f, 1f, elapsed / slideDuration));
                 yield return null;
             }
 
-            vcam.Follow = dest;
-            currentTarget = dest;
+            vcam.Follow = request.target;
+            currentTarget = request.target;
             Destroy(proxy.gameObject);
         }
+
+        if (hasDialogue && DialogueManager.Instance != null)
+        {
+            var d = new Dialogue();
+            d.showDialogue = true;
+            d.lines = request.dialogueLines;
+            DialogueManager.Instance.StartDialogue(d);
+            yield return new WaitUntil(() => !(DialogueManager.Instance?.IsOpen() ?? false));
+        }
+
+        if (lockState)
+            GameManager.Instance?.SetState(GameManager.GameState.Explore);
+
+        if (!string.IsNullOrEmpty(request.flagOnComplete))
+            GameManager.Instance?.SetFlag(request.flagOnComplete);
 
         activeSlide = null;
 
         if (panQueue.Count > 0)
-        {
             activeSlide = StartCoroutine(SlideCoroutine(panQueue.Dequeue()));
-        }
-        else
-        {
-            GameManager.Instance?.SetState(GameManager.GameState.Explore);
-        }
     }
 }

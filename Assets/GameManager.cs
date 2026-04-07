@@ -58,6 +58,10 @@ public class GameManager : MonoBehaviour
 
     public bool IsState(GameState state) => currentState == state;
 
+    // Inspector-callable helpers for UnityEvents
+    public void SetStateExplore()   => SetState(GameState.Explore);
+    public void SetStateDialogue()  => SetState(GameState.Dialogue);
+
     // --- Lifecycle ---
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void AutoCreate()
