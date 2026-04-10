@@ -8701,10 +8701,10 @@ MonoBehaviour:
       text: Did you bring proof of death?
       flagOnComplete: 
     - characterName: Dahlia
-      text: Y-yes... here you go
+      text: Y-yes... here you go.
       flagOnComplete: 
     - characterName: Boss Man
-      text: "Hmm... very good\u201D"
+      text: Hmm... very good.
       flagOnComplete: 
     - characterName: Boss Man
       text: One less meddlesome investigator looking into our business.
@@ -8717,7 +8717,7 @@ MonoBehaviour:
       text: Umm, who exactly?
       flagOnComplete: 
     - characterName: Boss Man
-      text: "That doesn\u2019t concern you Hemlock"
+      text: "That doesn\u2019t concern you Hemlock."
       flagOnComplete: 
     - characterName: Boss Man
       text: "Remember your place, you\u2019re nothing more than a violent tool. Don\u2019t

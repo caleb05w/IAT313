@@ -1218,6 +1218,11 @@ MonoBehaviour:
   radius: 0
   useBoxCollider: 1
   isHostile: 0
+  fireOnInteract: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -1258,13 +1263,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 1
   spawnOffset: 1.5
   fadeDuration: 0.25
@@ -3082,6 +3085,11 @@ MonoBehaviour:
   radius: 0
   useBoxCollider: 1
   isHostile: 0
+  fireOnInteract: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -3122,13 +3130,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 4
   spawnOffset: 1.25
   fadeDuration: 0.25
@@ -3180,7 +3186,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 973243019
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -3367,6 +3373,11 @@ MonoBehaviour:
   radius: 0
   useBoxCollider: 1
   isHostile: 0
+  fireOnInteract: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -3407,13 +3418,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 0
   spawnOffset: 1
   fadeDuration: 0.25
@@ -3999,6 +4008,11 @@ MonoBehaviour:
   radius: 0
   useBoxCollider: 1
   isHostile: 0
+  fireOnInteract: 0
+  interactLabel: 
+  flagOnEnter: 
+  flagOnExit: 
+  oneShot: 0
   onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -4039,13 +4053,11 @@ MonoBehaviour:
   setFlagOnTeleport: 
   missingFlagDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   requiredItem: {fileID: 0}
   blockedDialogue:
     showDialogue: 0
-    dialogueText: []
-    characterName: 
+    lines: []
   spawnDirection: 3
   spawnOffset: 1
   fadeDuration: 0.25
@@ -4097,7 +4109,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 973243019
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
