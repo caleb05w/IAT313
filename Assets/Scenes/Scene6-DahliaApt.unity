@@ -517,7 +517,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 5375160194512037211, guid: e40fd6429bebd9e4faaa43b5b0e48f33, type: 3}
+  m_Sprite: {fileID: 1464215108649072699, guid: bc58b3a17a9d1654facbe9e29e75cc62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2710,6 +2710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5751978dfa734eea81e24a0dec56305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayer
+  playOnStart: 0
+  startSlides: []
   slides:
   - layout: 0
     image: {fileID: 0}
